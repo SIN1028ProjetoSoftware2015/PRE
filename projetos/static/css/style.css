@@ -35,6 +35,12 @@ a, a:hover, a:focus {
     color: #fff;
 }
 
+.footer-ufsm {/*UFSM não tinha*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 #container {
     width: 100%;
     height: 100%;
@@ -327,6 +333,7 @@ ul.sidebar-menu li a.active i {
 
 #main-content {
     margin-left: 210px;
+    margin-right: 210px;/*UFSM: nao tinha*/;
 }
 
 .header, .footer {
@@ -2259,7 +2266,7 @@ ul.inbox-pagination li {
 /*profile*/
 
 .profile-nav .user-heading {
-    background: #ff766c;
+    background: #006699;/*UFSM: ff766c*/
     color: #fff;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
@@ -2353,7 +2360,7 @@ ul.inbox-pagination li {
 }
 
 .bio-graph-heading {
-    background: #41cac0;
+    background: #00527D;/*UFSM: 41cac0*/
     color: #fff;
     text-align: center;
     font-style: italic;
