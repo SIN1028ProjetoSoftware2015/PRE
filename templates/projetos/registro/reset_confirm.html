@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+
+    <title>UFSM - PRE Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-reset.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{% static 'js/html5shiv.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+</head>
+
+  <body class="login-body">
+    <div class="container">
+
+        
+            {% if validlink %}
+                <form role="form" action="." method="post" class="forget-form">
+                    {% csrf_token %}
+                    <h3>Alteração de senha</h3>
+                    <p>Informe sua nova senha.</p>
+                    {% if form.non_field_errors %}
+                        <p class="error">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}"><button class="close" data-close="alert"></button><span>{{ message }}</span></div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <input class="form-control placeholder-no-fix" id="id_new_password1" autocomplete="off" placeholder="Senha"  name="new_password1" type="password">
+                        {% if form.new_password1.errors %}
+                            <p class="error">
+                                {% for error in form.new_password1.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control placeholder-no-fix" id="id_new_password2" autocomplete="off" placeholder="Confirmação de senha"  name="new_password2" type="password">
+                        {% if form.new_password2.errors %}
+                            <p class="error">
+                                {% for error in form.new_password2.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="back-btn" class="btn btn-default">Voltar</button>
+                        <button type="submit" class="btn btn-success uppercase pull-right">Enviar</button>
+                    </div>
+                </form>
+            {% else %}
+                Link de confirmação inválido
+            {% endif %}
+
+
+
+    </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
