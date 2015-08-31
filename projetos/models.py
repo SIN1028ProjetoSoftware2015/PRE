@@ -34,7 +34,7 @@ class Aluno(models.Model):
 
 	matricula = models.IntegerField(primary_key=True)
 	nome = models.CharField(blank=False, null=False, max_length=255)
-
+	vinculo = models.ForeignKey(Vinculo, blank=True, null=True)
 
 class ProjetoAluno(models.Model):
 
@@ -44,4 +44,3 @@ class ProjetoAluno(models.Model):
 	projeto = models.OneToOneField(Projeto, blank=False, null=False)
 	aluno = models.OneToOneField(Aluno, blank=False, null=False)
 	carga_horaria = models.IntegerField(blank=True, null=True)
-	vinculo = models.ForeignKey(Vinculo, blank=True, null=True)
