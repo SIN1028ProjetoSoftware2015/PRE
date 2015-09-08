@@ -3,7 +3,7 @@
 import csv
 from sqlalchemy import *
 
-
+#funcao que pega linha a linha do arquivo csv
 def gen_linhas_csv(arquivo_csv, header=False):
 	inp = csv.reader(open(arquivo_csv, 'r'), delimiter=',')
 	for i in inp:
@@ -11,23 +11,25 @@ def gen_linhas_csv(arquivo_csv, header=False):
 			header = False
 		else: yield i
 
-
-engine = create_engine('postgresql://postgres:nobug95@localhost/ufsm_projetos')
+#conexao com o banco
+engine = create_engine('postgresql://postgres:postgres@localhost/ufsm_projetos')
 conn = engine.connect()
-
 metadata = MetaData(engine)
 #metadata.bind.echo = True
 
+#representacao das tabelas do banco de dados
 tbl_projetos = Table('projetos_projeto', metadata, autoload=True)
 tbl_participantes = Table('projetos_participante', metadata, autoload=True)
 tbl_proj_part = Table('projetos_projetoparticipante', metadata, autoload=True)
 tbl_responsavel = Table('projetos_responsavel', metadata, autoload=True)
 
+#converte a acentuacao
 def converte(_string):
 	if _string == None or _string.strip() == '':
 		return None
 	return unicode(_string,'Latin1')
 
+#verifica se um campo eh numerico
 def is_valido(codigo):
 	if codigo == None or codigo.strip() == '':
 		return False
@@ -37,8 +39,8 @@ def is_valido(codigo):
 	except:
 		return False
 
-#Importa projetos
 
+#Importa projetos
 cont = 0
 ai_responsavel = 1
 listaProjetos = []
