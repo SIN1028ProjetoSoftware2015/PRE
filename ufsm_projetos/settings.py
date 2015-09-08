@@ -147,15 +147,3 @@ if DEBUG:
 
 #STATIC_URL = 'http://localhost/static_ufsm/'
 STATIC_URL = '/static/'
-
-TAMANHO_MINIMO_SENHA = 6
-
-TAMANHO_SENHA_EMAIL = 10
-
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ufsmfwpre@gmail.com'
-EMAIL_HOST_PASSWORD = 'ufsmfwpredjango'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'ufsmfwpre@gmail.com'
