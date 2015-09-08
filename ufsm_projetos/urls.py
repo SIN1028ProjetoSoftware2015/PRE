@@ -21,4 +21,5 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^/', include(admin.site.urls)),
     url(r'^projetos/', include('projetos.urls', namespace="projetos")),
+
 ]
