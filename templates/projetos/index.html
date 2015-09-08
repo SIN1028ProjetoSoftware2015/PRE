@@ -37,165 +37,7 @@
           <!--logo start-->
           <a href="{% url 'projetos:home' %}" class="logo" >UFSM<span>PRE</span></a>
           <!--logo end-->
-          <div class="nav notify-row" id="top_menu">
-            <!--  notification start -->
-            <ul class="nav top-menu">
-              <!-- settings start -->
-              <li class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <i class="icon-tasks"></i>
-                      <span class="badge bg-success">2</span>
-                  </a>
-                  <ul class="dropdown-menu extended tasks-bar">
-                      <div class="notify-arrow notify-arrow-green"></div>
-                      <li>
-                          <p class="green">Você esta atuando em 2 projetos</p>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <div class="task-info">
-                                  <div class="desc">Projeto A</div>
-                                  <div class="percent">40%</div>
-                              </div>
-                              <div class="progress progress-striped">
-                                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                      <span class="sr-only">40% Completo</span>
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <div class="task-info">
-                                  <div class="desc">Projeto B</div>
-                                  <div class="percent">60%</div>
-                              </div>
-                              <div class="progress progress-striped">
-                                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                      <span class="sr-only">60% Completo</span>
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
-                  </ul>
-              </li>
-              <!-- settings end -->
-              <!-- inbox dropdown start-->
-              <li id="header_inbox_bar" class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <i class="icon-envelope-alt"></i>
-                      <span class="badge bg-important">3</span>
-                  </a>
-                  <ul class="dropdown-menu extended inbox">
-                      <div class="notify-arrow notify-arrow-red"></div>
-                      <li>
-                          <p class="red">Novos participantes</p>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="{% static 'img/avatar-mini3.jpg' %}"></span>
-                                    <span class="subject">
-                                    <span class="from">Angélica Skalee</span>
-                                    <span class="time">01/09/2015</span>
-                                    </span>
-                                    <span class="message">
-                                      Se juntou ao Projeto B
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="{% static 'img/avatar-mini3.jpg' %}"></span>
-                                    <span class="subject">
-                                    <span class="from">Carina Zortea</span>
-                                    <span class="time">20/08/2015</span>
-                                    </span>
-                                    <span class="message">
-                                      Se juntou ao Projeto A
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="{% static 'img/avatar-mini2.jpg' %}"></span>
-                              <span class="subject">
-                              <span class="from">Mateus Volpato</span>
-                              <span class="time">25/082015</span>
-                              </span>
-                              <span class="message">
-                                Se juntou ao Projeto B
-                              </span>
-                          </a>
-                      </li>
-                  </ul>
-              </li>
-              <!-- inbox dropdown end -->
-              <!-- notification dropdown start-->
-              <li id="header_notification_bar" class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <i class="icon-bell-alt"></i>
-                      <span class="badge bg-warning">4</span>
-                  </a>
-                  <ul class="dropdown-menu extended notification">
-                      <div class="notify-arrow notify-arrow-yellow"></div>
-                      <li>
-                          <p class="yellow">Notificações</p>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="label label-danger"><i class="icon-bolt"></i></span>
-                              Novas funcionalidades...
-                              <span class="small italic">34 mins</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="label label-warning"><i class="icon-bell"></i></span>
-                              Novos projetos adicionados
-                              <span class="small italic">1 Hora</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="label label-success"><i class="icon-plus"></i></span>
-                              Novo usuário cadastrado
-                              <span class="small italic">Agora</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="label label-info"><i class="icon-bullhorn"></i></span>
-                              Erro ao importar arquivo
-                              <span class="small italic">10 mins</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">Mostrar todas as notificações</a>
-                      </li>
-                  </ul>
-              </li>
-              <!-- notification dropdown end -->
-          </ul>
-          </div>
-          <div class="top-nav ">
-              <ul class="nav pull-right top-menu">
-                  <!-- user login dropdown start-->
-                  <li class="dropdown">
-                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                          <img alt="" src="{% static 'img/avatar1_small.jpg' %}">
-                          <span class="username">Fulano de Tal</span>
-                          <b class="caret"></b>
-                      </a>
-                      <ul class="dropdown-menu extended logout">
-                          <li><a href="#"><i class=" icon-suitcase"></i>Projetos</a></li>
-                          <li><a href="#"><i class="icon-cog"></i> Conta</a></li>
-                          <li><a href="#"><i class="icon-bell-alt"></i> Notificações</a></li>
-                          <li><a href="{% static 'login.html' %}"><i class="icon-key"></i> Sair</a></li>
-                      </ul>
-                  </li>
-                  <!-- user login dropdown end -->
-              </ul>
-          </div>
+          
       </header>
       <!--header end-->
       <!--sidebar end-->
@@ -220,14 +62,16 @@
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'js/jquery.js' %}"></script>
+    {% block jqueryext %}
+    {% endblock jqueryext %}
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script class="include" type="text/javascript" src="{% static 'js/jquery.dcjqaccordion.2.7.js' %}"></script>
     <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
     <script src="{% static 'js/jquery.nicescroll.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/respond.min.js' %}" ></script>
+
     {% block pluginsjs %}
     {% endblock pluginsjs %}
-
+    <script src="{% static 'js/respond.min.js' %}" ></script>
     <!--common script for all pages-->
     <script src="{% static 'js/common-scripts.js' %}"></script>
     {% block pagescripts %}
