@@ -35,13 +35,13 @@ class Responsavel(models.Model):
 class ProjetoParticipante(models.Model):
 
 	class Meta:
-		unique_together = (('projeto', 'participante'),)
+		unique_together = (('projeto', 'participante', 'funcao', 'data_inicial', 'data_final'),)
 
-	projeto = models.OneToOneField(Projeto, blank=False, null=False)
-	participante = models.OneToOneField(Participante, blank=False, null=False)
-	funcao = models.CharField(max_length=80, blank=True, null=True)
+	projeto = models.ForeignKey(Projeto, blank=False, null=False)
+	participante = models.ForeignKey(Participante, blank=False, null=False)
+	funcao = models.CharField(max_length=80, blank=False, null=False)
 	vinculo = models.CharField(max_length=256)
 	carga_horaria = models.IntegerField(blank=True, null=True)
-	data_inicial = models.DateTimeField(blank=True, null=True)
-	data_final = models.DateTimeField(blank=True, null=True)
+	data_inicial = models.DateTimeField(blank=False, null=False)
+	data_final = models.DateTimeField(blank=False, null=False)
 	desc_bolsa = models.CharField(max_length=256, blank=True, null=True)
