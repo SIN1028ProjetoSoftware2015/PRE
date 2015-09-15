@@ -138,22 +138,14 @@
 
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}
-<<<<<<< HEAD
             { departamento: '{{ k }}', projetos: {{ v }} },
-=======
-            { departamento: '{{ k }}', projetos: {{ v }}, legend: '' },
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
           {% endfor %}
       ]
 
       Morris.Bar({
         element: 'bar_departamento',
         data: barDepartamentoData,
-<<<<<<< HEAD
         xkey: 'departamento',
-=======
-        xkey: 'legend',
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
         ykeys: ['projetos'],
         labels: ['Projetos'],
         barRatio: 0.4,
@@ -164,22 +156,14 @@
 
       var barProjUnidadeData = [
           {% for k, v in projeto_unidade.items %}
-<<<<<<< HEAD
             { unidade: '{{ k }}', projetos: {{ v }} },
-=======
-            { unidade: '{{ k }}', projetos: {{ v }}, legend: '' },
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
           {% endfor %}
       ]
 
       Morris.Bar({
         element: 'bar_unidade_proj',
         data: barProjUnidadeData,
-<<<<<<< HEAD
         xkey: 'unidade',
-=======
-        xkey: 'legend',
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
         ykeys: ['projetos'],
         labels: ['Projetos'],
         barRatio: 0.4,
@@ -191,22 +175,14 @@
 
       var barPartUnidadeData = [
           {% for k, v in participante_unidade.items %}
-<<<<<<< HEAD
             { unidade: '{{ k }}', partipante: {{ v }} },
-=======
-            { unidade: '{{ k }}', partipante: {{ v }}, legend: '' },
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
           {% endfor %}
       ]
 
       Morris.Bar({
         element: 'bar_unidade_part',
         data: barPartUnidadeData,
-<<<<<<< HEAD
         xkey: 'unidade',
-=======
-        xkey: 'legend',
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
         ykeys: ['partipante'],
         labels: ['Participantes'],
         barRatio: 0.4,

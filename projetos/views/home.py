@@ -47,12 +47,6 @@ def get_projeto_unidade():
 
 def get_participante_unidade():
 	mapa = {}
-<<<<<<< HEAD
 	for m in Unidade.objects.all():
-		print(m)
 		mapa[m.nome] = Participante.objects.filter(unidade=m.codigo).count()
-=======
-	for m in Participante.objects.order_by().values('unidade').distinct():
-		mapa[m['unidade']] = Participante.objects.filter(unidade=m['unidade']).count()
->>>>>>> 24ddb20d1acc65a26f3cb4f36d8d0c632d3129ed
 	return mapa
