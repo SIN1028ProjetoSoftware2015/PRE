@@ -1,0 +1,133 @@
+{% extends "projetos/index.html" %}
+{% load staticfiles %}
+{% block headercss %}
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+{% endblock headercss %}
+
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <div class="row">
+            {% include "projetos/menu.html" %}
+            <aside class="profile-info col-lg-9">
+                <section class="panel">
+                    <div class="bio-graph-heading">
+                        Lista de Participantes - UFSM
+                    </div>
+                    <div class="panel-body">
+                        <div class="adv-table">
+                            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                                <thead>
+                                <tr>
+                                    <th class="hidden-phone">Matrícula</th>
+                                    <th class="hidden-phone">Nome</th>
+                                    <th class="hidden-phone">Unidade</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for obj in objetos %}
+                                    <tr class="gradeA" rel="{{ obj.matricula }}">
+                                        <td class="center hidden-phone">{{ obj.matricula }}</td>
+                                        <td class="center hidden-phone">{{ obj.nome }}</td>
+                                        <td class="center hidden-phone">{{ obj.unidade.nome }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+      </section>
+  </section>
+</section>
+{% endblock content %}
+
+{% block jqueryext %}
+    <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.js' %}"></script>
+{% endblock jqueryext %}
+
+{% block js-foot %}
+    <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript">
+      /* Formating function for row details */
+      function fnFormatDetails ( oTable, nTr )
+      {
+          var aData = oTable.fnGetData( nTr );
+          var id = $(nTr).attr('rel');
+          $.ajax({
+              type: "POST",
+              dataType : "json",
+              url: "/participantes/detalhes",
+              data: {
+                  'matricula': id,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}',
+              },
+              success: function(jsonData){
+                  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+                  if(jsonData.resultFail) {
+                      sOut += "<tr><td colspan='3'>" + jsonData.resultFail + "</td><tr>";
+                  }
+                  else {
+                      $.each(jsonData, function(i, item){
+                          sOut += '<tr>';
+                          sOut += '<td>Projeto:</td><td>'+item.fields.projeto+' - '+item.fields.projeto_nome+'</td>';
+                          sOut += '<td>Vinculo:</td><td>'+item.fields.vinculo+'</td>';
+                          sOut += '<td>Função:</td><td>'+item.fields.funcao+'</td>';
+                          sOut += '</tr>';
+                      });
+                  }
+                  sOut += '</table>';
+                  oTable.fnOpen( nTr, sOut, 'details' );
+              }
+          });
+      }
+
+      $(document).ready(function() {
+          /*
+           * Insert a 'details' column to the table
+           */
+          var nCloneTh = document.createElement( 'th' );
+          var nCloneTd = document.createElement( 'td' );
+          nCloneTd.innerHTML = '<img src="{% static 'assets/advanced-datatable/examples/examples_support/details_open.png' %}">';
+          nCloneTd.className = "center";
+
+          $('#hidden-table-info thead tr').each( function () {
+              this.insertBefore( nCloneTh, this.childNodes[0] );
+          } );
+
+          $('#hidden-table-info tbody tr').each( function () {
+              this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
+          } );
+
+          var oTable = $('#hidden-table-info').dataTable( {
+              "aoColumnDefs": [
+                  { "bSortable": false, "aTargets": [ 0 ] }
+              ],
+              "aaSorting": [[1, 'asc']]
+          });
+
+          /* Add event listener for opening and closing details
+           * Note that the indicator for showing which row is open is not controlled by DataTables,
+           * rather it is done here
+           */
+          $('#hidden-table-info tbody td img').live('click', function () {
+              var nTr = $(this).parents('tr')[0];
+              if ( oTable.fnIsOpen(nTr) )
+              {
+                  /* This row is already open - close it */
+                  this.src = "{% static 'assets/advanced-datatable/examples/examples_support/details_open.png' %}";
+                  oTable.fnClose( nTr );
+              }else{
+                  /* Open this row */
+                  this.src = "{% static 'assets/advanced-datatable/examples/examples_support/details_close.png' %}";
+                  fnFormatDetails(oTable, nTr);
+              }
+          } );
+      } );
+  </script>
+{% endblock js-foot %}

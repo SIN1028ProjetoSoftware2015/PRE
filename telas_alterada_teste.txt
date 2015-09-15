@@ -1,9 +1,0 @@
-tela de login
-tela de cadastro do aluno
-tela de recuperacao de senha
-tela inical do site (Graficos, e explicação do PRE)
-tela de listagem dos projetos
-tela de listagem das unidades
-tela de contato
-tela de listagem de usuários (só para adm, pode marcar outro como adm)
-tela de detalhes do projetos

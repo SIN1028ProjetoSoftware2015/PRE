@@ -28,10 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
-PASSWORD_RESET_TIMEOUT_DAYS = 1
-
-LOGIN_URL = "/projetos/login/"
-
 SESSION_COOKIE_AGE = 86400
 
 # Application definition
@@ -71,7 +67,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': 'localhost',
         'USER': 'postgres',
-        'PASSWORD': 'nobug95'
+        'PASSWORD': 'postgres'
     }
 }
 

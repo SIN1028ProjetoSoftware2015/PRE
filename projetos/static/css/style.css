@@ -17,6 +17,17 @@ body {
     font-size:13px;
 }
 
+.pie-legend li span {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin-right: 5px;
+}
+.pie-legend {
+    list-style: none;
+    padding: 10px;    
+}
+
 ul li {
     list-style: none;
 }
@@ -2360,7 +2371,7 @@ ul.inbox-pagination li {
 }
 
 .bio-graph-heading {
-    background: #00527D;/*UFSM: 41cac0*/
+    background: #006699;/*UFSM: 41cac0*/
     color: #fff;
     text-align: center;
     font-style: italic;

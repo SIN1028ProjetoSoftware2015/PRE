@@ -5,7 +5,7 @@ from django.db import models
 
 class Projeto(models.Model):
 
-	numero = models.IntegerField(primary_key=True)
+	numero = models.CharField(max_length=20, primary_key=True)
 	titulo = models.CharField(max_length=256, blank=True, null=True)
 	classificacao = models.CharField(max_length=80, blank=True, null=True)
 	avaliacao = models.CharField(max_length=80, blank=True, null=True)
@@ -18,12 +18,27 @@ class Projeto(models.Model):
 	departamento = models.CharField(max_length=80, blank=True, null=True)
 
 
+class Unidade(models.Model):
+
+	codigo = models.IntegerField(primary_key=True)
+	nome = models.CharField(blank=False, null=False, max_length=256)
+
+
 class Participante(models.Model):
 
-	matricula = models.IntegerField(primary_key=True)
+	matricula = models.CharField(max_length=20, primary_key=True)
 	nome = models.CharField(blank=False, null=False, max_length=256)
-	unidade = models.CharField(max_length=256)
+	unidade = models.ForeignKey(Unidade, blank=True, null=True)
 
+
+class ProjetoUnidade(models.Model):
+
+	class Meta:
+		unique_together = (('projeto', 'unidade'),)
+
+	projeto = models.ForeignKey(Projeto, blank=False, null=False)
+	unidade = models.ForeignKey(Unidade, blank=False, null=False)
+	
 
 class Responsavel(models.Model):
 

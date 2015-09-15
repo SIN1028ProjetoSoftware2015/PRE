@@ -31,6 +31,11 @@ def file_exists(filepath, filename=None):
     else:
         return None
 
+@register.filter(name='ramdom_color')
+def ramdom_color(x):
+    r = lambda: random.randint(0,255)
+    return '#%02X%02X%02X' % (r(),r(),r())
+
 @register.filter(name='base64crypt')
 def base64crypt(message):
     enc = base64.b64encode(message.encode('utf-8'))

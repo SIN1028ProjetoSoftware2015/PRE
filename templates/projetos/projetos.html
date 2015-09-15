@@ -14,7 +14,7 @@
             <aside class="profile-info col-lg-9">
                 <section class="panel">
                     <div class="bio-graph-heading">
-                        Lista dos Projetos de Extenção - UFSM
+                        Lista de Projetos de Extensão - UFSM
                     </div>
                     <div class="panel-body">
                         <div class="adv-table">
@@ -31,20 +31,17 @@
                                 </thead>
                                 <tbody>
                                 {% for obj in objetos %}
-                                    <tr class="gradeA">
+                                    <tr class="gradeA" rel="{{ obj.numero }}">
                                         <td class="center hidden-phone">{{ obj.numero }}</td>
                                         <td class="center hidden-phone">{{ obj.titulo }}</td>
                                         <td class="center hidden-phone">{{ obj.situacao }}</td>
-                                        <td class="center hidden-phone">{{ obj.data_inicial }}</td>
-                                        <td class="center hidden-phone">{{ obj.data_conclusao }}</td>
+                                        <td class="center hidden-phone">{{ obj.data_inicial|date:"d/m/Y" }}</td>
+                                        <td class="center hidden-phone">{{ obj.data_conclusao|date:"d/m/Y" }}</td>
                                         <td class="center hidden-phone">{{ obj.departamento }}</td>
-                                        
                                     </tr>
                                 {% endfor %}
-
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </section>
@@ -66,12 +63,44 @@
       function fnFormatDetails ( oTable, nTr )
       {
           var aData = oTable.fnGetData( nTr );
-          var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-          sOut += '<tr><td>Número:</td><td>'+aData[1]+'</td></tr>';
-          sOut += '<tr><td>Nome:</td><td>'+aData[2]+'</td></tr>';
-          sOut += '</table>';
-
-          return sOut;
+          var id = $(nTr).attr('rel');
+          $.ajax({
+              type: "POST",
+              dataType : "json",
+              url: "/projetos/detalhes",
+              data: {
+                  'numero': id,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}',
+              },
+              success: function(jsonData){
+                  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+                  if(jsonData.resultFail) {
+                      sOut += "<tr><td colspan='3'>" + jsonData.resultFail + "</td><tr>";
+                  }
+                  else {
+                      $.each(jsonData, function(i, item){
+                          sOut += '<tr>';
+                          sOut += '<td>Avaliação:</td><td>'+item.fields.avaliacao+'</td>';
+                          sOut += '<td>Classificacao:</td><td>'+item.fields.classificacao+'</td>';
+                          sOut += '</tr>';
+                          sOut += '<tr>';
+                          sOut += '<td>Data Registro:</td><td>'+item.fields.data_registro+'</td>';
+                          sOut += '<td>Data Última Avaliação:</td><td>'+item.fields.data_ult_aval+'</td>';
+                          sOut += '</tr>';
+                          sOut += '<tr>';
+                          sOut += '<td>Situação:</td><td>'+item.fields.situacao+'</td>';
+                          sOut += '</tr>';
+                          if (item.fields.valor_previsto!=null && item.fields.valor_previsto!='null'){
+                            sOut += '<tr>';
+                            sOut += '<td>Valor Previsto:</td><td>'+item.fields.valor_previsto+'</td>';
+                            sOut += '</tr>';
+                          }
+                      });
+                  }
+                  sOut += '</table>';
+                  oTable.fnOpen( nTr, sOut, 'details' );
+              }
+          });
       }
 
       $(document).ready(function() {
@@ -117,7 +146,7 @@
               {
                   /* Open this row */
                   this.src = "{% static 'assets/advanced-datatable/examples/examples_support/details_close.png' %}";
-                  oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+                  fnFormatDetails(oTable, nTr);
               }
           } );
       } );
