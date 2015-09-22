@@ -21,13 +21,31 @@
                             <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                                 <thead>
                                 <tr>
-                                    <th class="hidden-phone">Matrícula</th>
-                                    <th class="hidden-phone">Nome</th>
-                                    <th class="hidden-phone">Unidade</th>
+                                    <th class="hidden-phone sorting">
+                                      {% if order == 'matricula' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'matricula' tpOrderInv object_qtdpage %}">Matrícula</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'matricula' 'asc' object_qtdpage %}">Matrícula</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'nome' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'nome' tpOrderInv object_qtdpage %}">Nome</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'nome' 'asc' object_qtdpage %}">Nome</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'unidade_id' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'unidade_id' tpOrderInv object_qtdpage %}">Unidade</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'unidade_id' 'asc' object_qtdpage %}">Unidade</a>
+                                      {% endif %}
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for obj in objetos %}
+                                {% for obj in object_list %}
                                     <tr class="gradeA" rel="{{ obj.matricula }}">
                                         <td class="center hidden-phone">{{ obj.matricula }}</td>
                                         <td class="center hidden-phone">{{ obj.nome }}</td>
@@ -37,6 +55,9 @@
                                 </tbody>
                             </table>
 
+                        </div>
+                        <div>
+                            {% include "projetos/paginacao.html" %}
                         </div>
                     </div>
                 </section>
@@ -106,9 +127,14 @@
 
           var oTable = $('#hidden-table-info').dataTable( {
               "aoColumnDefs": [
-                  { "bSortable": false, "aTargets": [ 0 ] }
+                  { "bSortable": false, "aTargets": false }
               ],
-              "aaSorting": [[1, 'asc']]
+              "aaSorting": [[1, 'asc']],
+              "bFilter": false,
+              "bInfo" : false,
+              "bLengthChange": false,
+              "bPaginate": false,
+              "bSortable": false
           });
 
           /* Add event listener for opening and closing details

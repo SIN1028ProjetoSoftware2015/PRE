@@ -113,3 +113,104 @@ def padString(source):
 
 def first_day_of_month(d):
     return date(d.year, d.month, 1)
+
+
+def paginar(kwargs, model, ordem_default, context, listFields, maximo_paginas = 5, lista_fetch=None, order_type='desc'):
+    """
+    Método de paginação padrão para todas as tabelas da aplicação, recebe os seguintes parâmetros
+    :param kwargs: ponteiro de parametros que contém a pagina, ordem, tipo de ordem, quentidade por pagina e filtros para a busca
+    :param model: classe dos objetos que seráo buscados
+    :param ordem_default: atributo de ordenção default para paginação
+    :param context: objeto contexto da requisição, este será retornado com a lista de atributos da paginação no final do método
+    :param listFields: lista de atributos da classe em questão
+    :param maximo_paginas: quantidade maxima de botões que representarão as paginas
+    :return: o objeto de contexto
+    """
+    if lista_fetch == None:
+        lista_fetch = []
+    page = 1
+    if 'page' in kwargs:
+        try:
+            page = int(kwargs['page'])
+        except:
+            pass
+    order = ordem_default
+    idxOrder = listFields.index(order)
+    if 'order' in kwargs:
+        try:
+            idxOrder = int(kwargs['order'])
+            order = listFields[ idxOrder ]
+        except:
+            pass
+    tpOrder = order_type
+    if 'tpOrder' in kwargs:
+        try:
+            tpOrder = kwargs['tpOrder']
+        except:
+            pass
+    paginate_by = 50
+    if 'qtdPage' in kwargs:
+        try:
+            paginate_by = int(kwargs['qtdPage'])
+        except:
+            pass
+
+    context['page'] = page
+    context['idxorder'] = idxOrder
+    context['order'] = order
+    context['fields'] = listFields
+    context['tpOrder'] = tpOrder
+    if tpOrder == 'asc':
+        context['tpOrderInv'] = 'desc'
+    else:
+        context['tpOrderInv'] = 'asc'
+
+    list_docs = []
+    last_page = 1
+    if page < 1:
+        page = 1
+    params = {}
+    if 'params' in kwargs:
+        params = kwargs['params']
+    total = model.objects.filter(**params).count()
+    if total > 0:
+        last_page = int(total/paginate_by)
+        if total % paginate_by > 0:
+            last_page += 1
+        if page > last_page:
+            page = last_page
+        if order != None:
+            if tpOrder == 'desc':
+                order = '-'+order
+            list_docs = model.objects.filter(**params).prefetch_related(*lista_fetch).order_by(order)[(page-1)*paginate_by: (page-1)*paginate_by+paginate_by]
+        else:
+            list_docs = model.objects.filter(**params)[(page-1)*paginate_by: (page-1)*paginate_by+paginate_by]
+    context['object_list'] = list_docs
+    listacontrol = []
+    left = int(maximo_paginas/2)+1 #mais um para que nao contabilize a propria pagina
+    idxL = page
+    while left > 0 and idxL > 0:
+        listacontrol.append(idxL)
+        idxL -= 1
+        left -= 1
+    right = int(maximo_paginas/2) + left
+    idxR = page+1
+    while right > 0 and idxR < last_page+1:
+        listacontrol.append(idxR)
+        idxR += 1
+        right -= 1
+    if right > 0: #se sobrou espaco pra direita
+        left = right
+        while left > 0 and idxL > 0:
+            listacontrol.append(idxL)
+            idxL -= 1
+            left -= 1
+    context['object_range'] = sorted(set(listacontrol))
+    context['object_page'] = page
+    context['object_count'] = total
+    context['object_last'] = last_page
+    context['object_previous'] = page-1
+    context['object_next'] = page+1
+    context['object_qtdpage'] = paginate_by
+    return context
+

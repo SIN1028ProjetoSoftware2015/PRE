@@ -3,19 +3,37 @@ from projetos.models import Projeto, Participante
 from django.http import HttpResponse
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from projetos.utils import paginar
+from datetime import datetime, time, timedelta
 import json
+
+filtros = None
+
 # Create your views here.
 class ProjetosAdmin(TemplateView):
 	template_name = 'projetos/projetos.html'
+	listFields = sorted([x for x, y in Projeto().__dict__.items() if not x.startswith('_')])
 
 	def get_context_data(self, **kwargs):
+		global filtros
 		context = super(ProjetosAdmin, self).get_context_data(**kwargs)
-		lista = Projeto.objects.all()
 		context['menu'] = 'projetos'
 		context['total_participantes'] = Participante.objects.count()
-		context['total_projetos'] = len(lista)
-		context['objetos'] = lista
-		return context
+		context['total_projetos'] = Projeto.objects.count()
+		context['filtro_nome'] = 'Número'
+		context['filtro_valor'] = ''
+		if 'params' in kwargs:
+			filtros = kwargs['params']
+		elif 'page' in kwargs and filtros != None:
+			kwargs['params'] = filtros
+		elif 'params' not in kwargs:
+			filtros = None
+		if 'params' not in kwargs:
+			kwargs['params'] = {}
+
+		return paginar(kwargs, Projeto, 'numero', context, self.listFields, order_type='asc')
+
+
 
 def detalhes(request):
 	if request.method == 'POST':

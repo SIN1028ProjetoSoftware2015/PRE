@@ -2274,6 +2274,10 @@ ul.inbox-pagination li {
     margin-left: 55px;
 }
 
+.sorting, .sorting_asc, .sorting_desc { /* ufsm */
+    background : none;
+}
+
 /*profile*/
 
 .profile-nav .user-heading {

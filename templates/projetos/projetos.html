@@ -21,16 +21,52 @@
                             <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                                 <thead>
                                 <tr>
-                                    <th class="hidden-phone">Número</th>
-                                    <th class="hidden-phone">Título</th>
-                                    <th class="hidden-phone">Situação</th>
-                                    <th class="hidden-phone">Data Inicial</th>
-                                    <th class="hidden-phone">Data Conclusão</th>
-                                    <th class="hidden-phone">Departamento</th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'numero' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'numero' tpOrderInv object_qtdpage %}">Número</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'numero' 'asc' object_qtdpage %}">Número</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'titulo' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'titulo' tpOrderInv object_qtdpage %}">Título</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'titulo' 'asc' object_qtdpage %}">Título</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'situacao' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'situacao' tpOrderInv object_qtdpage %}">Situação</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'situacao' 'asc' object_qtdpage %}">Situação</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'data_inicial' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'data_inicial' tpOrderInv object_qtdpage %}">Data Inicial</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'data_inicial' 'asc' object_qtdpage %}">Data Inicial</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'data_conclusao' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'data_conclusao' tpOrderInv object_qtdpage %}">Data Conclusão</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'data_conclusao' 'asc' object_qtdpage %}">Data Conclusão</a>
+                                      {% endif %}
+                                    </th>
+                                    <th class="hidden-phone">
+                                      {% if order == 'departamento' %}
+                                      <a href="{% url request|viewname page fields|indexOf:'departamento' tpOrderInv object_qtdpage %}">Departamento</a>
+                                      {% else %}
+                                      <a href="{% url request|viewname page fields|indexOf:'departamento' 'asc' object_qtdpage %}">Departamento</a>
+                                      {% endif %}
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for obj in objetos %}
+                                {% for obj in object_list %}
                                     <tr class="gradeA" rel="{{ obj.numero }}">
                                         <td class="center hidden-phone">{{ obj.numero }}</td>
                                         <td class="center hidden-phone">{{ obj.titulo }}</td>
@@ -42,6 +78,9 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
+                        </div>
+                        <div>
+                            {% include "projetos/paginacao.html" %}
                         </div>
                     </div>
                 </section>
@@ -125,9 +164,14 @@
            */
           var oTable = $('#hidden-table-info').dataTable( {
               "aoColumnDefs": [
-                  { "bSortable": false, "aTargets": [ 0 ] }
+                  { "bSortable": false, "aTargets": false }
               ],
-              "aaSorting": [[1, 'asc']]
+              "aaSorting": [[1, 'asc']],
+              "bFilter": false,
+              "bInfo" : false,
+              "bLengthChange": false,
+              "bPaginate": false,
+              "bSortable": false
           });
 
           /* Add event listener for opening and closing details
