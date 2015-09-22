@@ -343,8 +343,8 @@ ul.sidebar-menu li a.active i {
 /*main content*/
 
 #main-content {
-    margin-left: 210px;
-    margin-right: 210px;/*UFSM: nao tinha*/;
+    margin-left: 50px;
+    margin-right: 50px;/*UFSM: nao tinha*/;
 }
 
 .header, .footer {
