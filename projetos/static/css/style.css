@@ -2290,6 +2290,7 @@ ul.inbox-pagination li {
     -webkit-border-radius: 50%;
     border: 10px solid rgba(256,256,256,0.3);
     display: inline-block;
+    background-color: white;
 }
 
 .profile-nav .user-heading a img {
