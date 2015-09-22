@@ -1,0 +1,67 @@
+<ul class="pagination">
+
+    {% if object_page > 1 %}
+        <li class="paginate_button previous">
+            <a href="{% url request|viewname 1 idxorder tpOrder %}"><i class="icon-double-angle-left"></i></a>
+        </li>
+        <li class="paginate_button previous">
+            <a href="{% url request|viewname object_previous idxorder tpOrder %}">
+            <i class="icon-angle-left"></i>
+            </a>
+        </li>
+    {% else %}
+        <li class="paginate_button previous disabled">
+            <a><i class="icon-double-angle-left"></i></a>
+        </li>
+        <li class="paginate_button previous disabled">
+            <a><i class="icon-angle-left"></i></a>
+        </li>
+    {% endif %}
+    {% for i in object_range %}
+        {% if i == object_page %}
+            <li class="paginate_button active">
+                <a href="{% url request|viewname i idxorder tpOrder %}"> {{ i }} </a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url request|viewname i idxorder tpOrder %}"> {{ i }} </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    {% if object_page < object_last %}
+        <li class="paginate_button next">
+            <a href="{% url request|viewname object_next idxorder tpOrder %}">
+            <i class="icon-angle-right"></i>
+            </a>
+        </li>
+        <li class="paginate_button next">
+            <a href="{% url request|viewname object_last idxorder tpOrder %}"><i class="icon-double-angle-right"></i></a>
+        </li>
+    {% else %}
+        <li class="paginate_button next disabled">
+            <a><i class="icon-angle-right"></i></a>
+        </li>
+        <li class="paginate_button next disabled">
+            <a><i class="icon-double-angle-right"></i></a>
+        </li>
+    {% endif %}
+    <li>
+        <div class="btn-group">
+            <button class="btn dropdown-toggle" style="line-height: 1.3;" type="button" data-toggle="dropdown"> {{ object_qtdpage }} <i class="icon-angle-down"></i></button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{% url request|viewname object_page idxorder tpOrder '10' %}"> 10 </a>
+                </li>
+                <li>
+                    <a href="{% url request|viewname object_page idxorder tpOrder '50' %}"> 50 </a>
+                </li>
+                <li>
+                    <a href="{% url request|viewname object_page idxorder tpOrder '100' %}"> 100 </a>
+                </li>
+                <li>
+                    <a href="{% url request|viewname object_page idxorder tpOrder '1000' %}"> 1000 </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
