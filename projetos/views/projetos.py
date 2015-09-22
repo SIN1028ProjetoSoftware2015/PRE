@@ -30,8 +30,50 @@ class ProjetosAdmin(TemplateView):
 			filtros = None
 		if 'params' not in kwargs:
 			kwargs['params'] = {}
+		if filtros!=None and len(filtros)>0:
+			for k, v in filtros.items():
+				if 'numero' in k:
+					context['filtro_nome'] = 'Número'
+					context['filtro_valor'] = v
+				elif 'titulo' in k:
+					context['filtro_nome'] = 'Título'
+					context['filtro_valor'] = v
+				elif 'situacao' in k:
+					context['filtro_nome'] = 'Situação'
+					context['filtro_valor'] = v
+				elif 'data_inicial' in k:
+					context['filtro_nome'] = 'Data Inicial'
+					context['filtro_valor'] = datetime.strptime(v.split(' ')[0], '%Y-%m-%d').strftime('%d/%m/%Y')
+				elif 'data_conclusao' in k:
+					context['filtro_nome'] = 'Data Conclusão'
+					context['filtro_valor'] = datetime.strptime(v.split(' ')[0], '%Y-%m-%d').strftime('%d/%m/%Y')
+				elif 'departamento' in k:
+					context['filtro_nome'] = 'Departamento'
+					context['filtro_valor'] = v
 
 		return paginar(kwargs, Projeto, 'numero', context, self.listFields, order_type='asc')
+
+	def post(self, request, *args, **kwargs):
+		if request.method == 'POST':
+			request.POST._mutable = True
+			if 'data_inicial' in request.POST and len(request.POST.get('data_inicial')):
+				try:
+					data_inicial = datetime.strptime(request.POST['data_inicial'], '%d/%m/%Y')
+					del request.POST['data_inicial']
+					request.POST['data_inicial__gte'] = str(datetime.combine(data_inicial, time.min))
+					request.POST['data_inicial__lte'] = str(datetime.combine(data_inicial, time.max))
+				except:
+					pass
+			if 'data_conclusao' in request.POST and len(request.POST.get('data_conclusao')):
+				try:
+					data_final = datetime.strptime(request.POST['data_conclusao'], '%d/%m/%Y')
+					del request.POST['data_conclusao']
+					request.POST['data_conclusao__gte'] = str(datetime.combine(data_final, time.min))
+					request.POST['data_conclusao__lte'] = str(datetime.combine(data_final, time.max))
+				except:
+					pass
+			params = {'params': dict((p, v) for p, v in request.POST.items() if p.split('__')[0] in self.listFields and v != None and len(v) > 0)}
+			return self.render_to_response(self.get_context_data(**params))
 
 
 

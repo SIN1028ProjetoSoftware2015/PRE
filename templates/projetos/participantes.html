@@ -17,6 +17,25 @@
                         Lista de Participantes - UFSM
                     </div>
                     <div class="panel-body">
+                        <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
+                          {% csrf_token %}
+                          <div class="input-group m-bot15 col-lg-6">
+                              <div class="input-group-btn">
+                                <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                  <div id="seletor">{{ filtro_nome }} <span class="caret"></span></div>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a onclick="javascript:$('#seletor').html('Matrícula <span class=\'caret\'></span>');$('#valor').attr('name', 'matricula__icontains')">Matrícula</a></li>
+                                    <li><a onclick="javascript:$('#seletor').html('Nome <span class=\'caret\'></span>');$('#valor').attr('name', 'nome__icontains')">Nome</a></li>
+                                    <li><a onclick="javascript:$('#seletor').html('Unidade <span class=\'caret\'></span>');$('#valor').attr('name', 'unidade_nome')">Unidade</a></li>
+                                </ul>
+                              </div>
+                              <input type="text" class="form-control" id="valor" name="matricula" value="{{ filtro_valor }}">
+                              <span class="input-group-btn">
+                                <button type="submit" class="btn btn-white" type="button">Buscar!</button>
+                              </span>
+                          </div>
+                        </form>
                         <div class="adv-table">
                             <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                                 <thead>
