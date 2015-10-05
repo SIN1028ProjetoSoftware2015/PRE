@@ -12,7 +12,7 @@
     <title>UFSM - PRE</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap-reset.css' %}" rel="stylesheet">
     <!--external css-->
     <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
@@ -29,13 +29,35 @@
     <![endif]-->
   </head>
 
+
   <body>
 
-  <section id="container" class="">
+ 
       <!--header start-->
-      <header class="header white-bg">
-          <!--logo start-->
-          <a href="{% url 'site:home' %}" class="logo" >UFSM<span>PRE</span></a>
+
+
+     <header class="site-header">
+  <div class="container">
+    <div class="row" style="background-color: white;">
+      <div class="col-sm-7">
+        <div class="logo" style="background-color: white; padding: 20px; text-align: left;">
+          <div class="col-sm-3" style="padding: 30px">
+             <a href="http://www.ufsm.br/pre" title="UFSM" rel="home">
+                <img class="hidden-xs" src="{% static 'img/brasao_pre.png' %}" height="100" alt="UFSM">
+              </a>
+            </div>
+        
+          <div class="col-sm-9" style="padding: 5px; text-align: center;">
+              <h1>PRE</h1>
+              <h2>Pró-Reitoria de Extensão</h2>
+            </div>
+        </div>
+      </div>      
+            
+      
+      <!-- /.header-right -->
+    </div></div></div>
+  
           <!--logo end-->
           
       </header>
@@ -58,7 +80,8 @@
           </div>
       </footer-->
       <!--footer end-->
-  </section>
+   
+  
 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'js/jquery.js' %}"></script>

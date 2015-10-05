@@ -87,29 +87,29 @@ def delete_all():
 
 def processa_projeto(x):
 	global ai_responsavel, cont, lista_projetos
-	if len(x) == 13 and is_valido(converte(x[0])):
+	if len(x) == 24 and is_valido(converte(x[1])):
 		try:
-			if converte(x[0]) not in lista_projetos:
+			if converte(x[1]) not in lista_projetos:
 				ins = tbl_projetos.insert().values(
-					numero = converte(x[0]),
-					titulo = converte(x[1]),
-					classificacao = converte(x[2]),
-					avaliacao = converte(x[3]),
-					data_registro = converte(x[4]),
-					data_inicial = converte(x[5]),
-					data_conclusao = converte(x[6]),
-					valor_previsto = converte(x[7]),
-					data_ult_aval = converte(x[8]),
-					situacao = converte(x[9]),
-					departamento = converte(x[12])
+					numero = converte(x[1]),
+					titulo = converte(x[2]),
+					classificacao = converte(x[3]),
+					avaliacao = converte(x[4]),
+					data_registro = converte(x[5]),
+					data_inicial = converte(x[6]),
+					data_conclusao = converte(x[7]),
+					valor_previsto = converte(x[8]),
+					data_ult_aval = converte(x[9]),
+					situacao = converte(x[10]),
+					departamento = converte(x[14])
 				)
 				ins.compile().params
 				conn.execute(ins)
-				lista_projetos.append(converte(x[0]))
+				lista_projetos.append(converte(x[1]))
 			ins = tbl_responsavel.insert().values(
 				codigo = ai_responsavel,
 				nome = converte(x[10]),
-				projeto_id = converte(x[0])
+				projeto_id = converte(x[1])
 			)
 			ins.compile().params
 			conn.execute(ins)

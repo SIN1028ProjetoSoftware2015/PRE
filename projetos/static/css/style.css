@@ -9,8 +9,8 @@ Website: http://thevectorlab.net/
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 
 body {
-    color: #797979;
-    background: #f1f2f7;
+    color: #0099cc;
+    background: #ccc;
     font-family: 'Open Sans', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
@@ -52,9 +52,14 @@ a, a:hover, a:focus {
     width: 100%;
 }
 
+.label-quantidade{
+    margin-left : 10px;
+    margin-right: 10px;
+}
+
 #container {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
 }
 
 /*login page*/
@@ -344,7 +349,7 @@ ul.sidebar-menu li a.active i {
 
 #main-content {
     margin-left: 50px;
-    margin-right: 50px;/*UFSM: nao tinha*/;
+    margin-right: 40px;/*UFSM: nao tinha*/;
 }
 
 .header, .footer {
@@ -366,8 +371,8 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-top: 60px;
-    padding: 15px;
+    margin-bottom: 60px;
+    padding: 1px;
     width: 100%;
 }
 
@@ -402,7 +407,7 @@ a.logo span {
 }
 
 ul.top-menu > li > a {
-    color: #666666;
+    color: #0099cc;
     font-size: 16px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -814,7 +819,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     margin-top: 20px;
     margin-left: 10px;
     position: relative;
-    border-bottom: 1px solid #c9cdd7;
+    border-bottom: 1px  #c9cdd7;
 }
 
 .custom-bar-chart .bar {
@@ -2281,7 +2286,7 @@ ul.inbox-pagination li {
 /*profile*/
 
 .profile-nav .user-heading {
-    background: #006699;/*UFSM: ff766c*/
+    background: #0099cc;/*UFSM: ff766c*/
     color: #fff;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
@@ -2294,7 +2299,7 @@ ul.inbox-pagination li {
     -webkit-border-radius: 50%;
     border: 10px solid rgba(256,256,256,0.3);
     display: inline-block;
-    background-color: white;
+    background-color: #0099cc;
 }
 
 .profile-nav .user-heading a img {
@@ -2315,13 +2320,14 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul {
-    margin-top: 1px;
+    margin-top: -20px;
+    margin-left: 1px;
 }
 
 .profile-nav ul > li {
-    border-bottom: 1px solid #ebeae6;
-    margin-top: 0;
-    line-height: 30px;
+  background:#ffffff  !important;
+    border-top-color: 8px groove #Fff;
+    color: #0099cc !important;
 }
 
 .profile-nav ul > li:last-child {
@@ -2329,16 +2335,16 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul > li > a {
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    color: #89817f;
-    border-left: 5px solid #fff;
+    border-radius: 0px;
+    -webkit-border-radius: 2;
+    color: #009;
+    /*border-left: 5px groove #f60;*/
 }
 
 .profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active  a {
-    background: #f8f7f5 !important;
-    border-left: 5px solid #ff766c;
-    color: #89817f !important;
+    background:#0099cc  !important;
+    border-le: 8px groove #F08124;
+    color: #ffffff !important;
 }
 
 .profile-nav ul > li:last-child > a:last-child {
@@ -2347,9 +2353,9 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul > li > a > i{
-    font-size: 16px;
+    font-size: 20px;
     padding-right: 10px;
-    color: #bcb3aa;
+    color: #333;
 }
 
 .r-activity {
@@ -2376,15 +2382,16 @@ ul.inbox-pagination li {
 }
 
 .bio-graph-heading {
-    background: #006699;/*UFSM: 41cac0*/
+    background: #0099cc;/*UFSM: 41cac0*/
     color: #fff;
     text-align: center;
     font-style: italic;
-    padding: 40px 110px;
+    padding: 5px ;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     font-size: 16px;
     font-weight: 300;
+    margin-top:2px;
 }
 
 .bio-graph-info {
