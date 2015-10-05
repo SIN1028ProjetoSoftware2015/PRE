@@ -182,7 +182,7 @@ a, a:hover, a:focus {
 /*sidebar navigation*/
 
 #sidebar {
-    width: 210px;
+    width: 100px;
     height: 100%;
     position: fixed;
     background: #2a3542;
@@ -431,7 +431,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .dropdown-menu.extended {
     max-width: 300px !important;
     min-width: 160px !important;
-    top: 42px;
+    top: 40px;
     width: 235px !important;
     padding: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.176) !important;
@@ -538,7 +538,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .top-nav  {
-    margin-top: 7px;
+    margin-top:5px;
 }
 
 .top-nav ul.top-menu > li .dropdown-menu.logout {
@@ -560,7 +560,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 
 .dropdown-menu.extended.logout > li:last-child {
     float: left;
-    text-align: center;
+    text-align: f;
     width: 100%;
     background: #a9d96c;
     border-radius: 0 0 3px 3px;
@@ -4256,13 +4256,13 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 }
 
 .horizontal-menu {
-    margin-left: 50px;
+    margin-left: 35px;
     float: left;
 }
 
 .horizontal-menu .navbar-nav > li > a {
     padding-bottom: 20px;
-    padding-top: 20px;
+    padding-top: 100px;
 }
 
 .full-width .navbar-header {
