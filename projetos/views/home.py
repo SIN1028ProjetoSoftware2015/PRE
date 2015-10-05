@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from projetos.models import Projeto, Participante, ProjetoParticipante, Unidade, ProjetoUnidade
 from projetos import utils
+import datetime
 
 # Create your views here.
 class HomeAdmin(TemplateView):
@@ -17,6 +18,7 @@ class HomeAdmin(TemplateView):
         context['projeto_departamento'] = get_projeto_departamento()
         context['projeto_unidade'] = get_projeto_unidade()
         context['participante_unidade'] = get_participante_unidade()
+        context['projetos_por_ano'] = get_projetos_por_ano()
         return context
 
 
@@ -24,6 +26,16 @@ def get_situacao_projetos():
 	mapa = {}
 	for m in Projeto.objects.order_by().values('situacao').distinct():
 		mapa[m['situacao']] = Projeto.objects.filter(situacao=m['situacao']).count()
+	return mapa
+
+def get_projetos_por_ano():
+	mapa = {}
+	for m in Projeto.objects.order_by().values('data_conclusao'):
+		if 'data_conclusao' in m and m['data_conclusao'] != None and type(m['data_conclusao']) == datetime.datetime:
+			if m['data_conclusao'].year in mapa:
+				mapa[m['data_conclusao'].year] = mapa[m['data_conclusao'].year] + 1
+			else:
+				mapa[m['data_conclusao'].year] = 1
 	return mapa
 
 

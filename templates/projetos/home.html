@@ -46,9 +46,22 @@
                           </div>
                       </div>
                       <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                              <header class="panel-heading">
+                                  Projetos / Ano
+                              </header>
+                              <div class="panel-body text-center">
+                                  <canvas id="pie_projetos_por_ano" width="600" height="400"></canvas>
+                              </div>
+                              <div id="legend_projetos_por_ano"></div>
+                          </section>
+                        </div>
+                      </div>
+                      <div class="row">
                           <div class="col-lg-12">
                               <section class="panel">
-                                  <header class="panel-heading">
+                                  <heai proader class="panel-heading">
                                       Projetos / Departamento
                                   </header>
                                   <div class="panel-body">
@@ -85,7 +98,6 @@
                   </section>
             </aside>
         </div>
-
         <!-- page end-->
     </section>
 </section>
@@ -127,6 +139,16 @@
           {% endfor %}
       ];
 
+      var pieProjetosPorAnoData = [
+          {% for k, v in projetos_por_ano.items %}
+          {
+              value: {{ v }},
+              color: '{{ ''|ramdom_color }}',
+              label: "{{ k }}"
+          },
+          {% endfor %}
+      ];
+
       myPieSituacao = new Chart(document.getElementById("pie_situacao").getContext("2d")).Pie(pieSituacaoData, {
           legendTemplate : '{{ legend_template|safe }}'
       });
@@ -137,6 +159,11 @@
       });
       $("#legend_vinculo").html(myPieVinculo.generateLegend());
 
+      myPieProjetosPorAno = new Chart(document.getElementById("pie_projetos_por_ano").getContext("2d")).Pie(pieProjetosPorAnoData, {
+          legendTemplate : '{{ legend_template|safe }}'
+      });
+      //ESCREVE A LEGENDA DE PROJETOS POR ANO
+      $("#legend_projetos_por_ano").html(myPieProjetosPorAno.generateLegend());
 
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}

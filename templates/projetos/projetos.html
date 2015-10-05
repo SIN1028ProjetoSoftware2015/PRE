@@ -34,6 +34,17 @@
                                     <li><a onclick="javascript:$('#seletor').html('Departamento <span class=\'caret\'></span>');$('#valor').attr('name', 'departamento__icontains')">Departamento</a></li>
                                 </ul>
                               </div>
+                              <div class="input-group-btn">
+                                <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                  <div id="seletor">{{ filtro_nome }} <span class="caret"></span></div>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a onclick="javascript:$('#seletor').html('Concluido <span class=\'caret\'></span>');$('#valor').attr('name', 'concluido__icontains')">Concluido</a></li>
+                                    <li><a onclick="javascript:$('#seletor').html('Publicado <span class=\'caret\'></span>');$('#valor').attr('name', 'publicado__icontains')">Publicado</a></li>
+                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Andamento</a></li>
+                                    
+                                </ul>
+                              </div>
                               <input type="text" class="form-control" id="valor" name="numero" value="{{ filtro_valor }}">
                               <span class="input-group-btn">
                                 <button type="submit" class="btn btn-white" type="button">Buscar!</button>
