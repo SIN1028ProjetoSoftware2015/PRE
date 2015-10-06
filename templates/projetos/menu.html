@@ -1,8 +1,8 @@
 
 
 {% load staticfiles %}
-
-<aside class="profile-nav col-lg-12">
+<section class="wrapper2">
+ <aside class="profile-nav col-lg-12">
     <section class="panel">
         
         <ul class="nav navbar-nav">
@@ -12,4 +12,5 @@
             <li {% if menu == 'sobre' %}class="active"{% endif %}><a href="{% url 'site:sobre' %}"> <i class="icon-star"></i> Sobre (PRE) </a></li>
         </ul>
     </section>
-</aside>
+  </aside>
+</section>

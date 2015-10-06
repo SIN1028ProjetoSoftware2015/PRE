@@ -348,7 +348,7 @@ ul.sidebar-menu li a.active i {
 /*main content*/
 
 #main-content {
-    margin-left: 50px;
+    margin-left: 40px;
     margin-right: 40px;/*UFSM: nao tinha*/;
 }
 
@@ -371,11 +371,27 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-bottom: 60px;
-    padding: 1px;
+    margin-bottom: 0px;
+    padding-top:1px;
     width: 100%;
+    background: #ffffff;
 }
 
+.wrapper1 {
+    display: inline-block;
+    margin-bottom: 0px;
+    padding-top:1px;
+    width: 100%;
+    background: #ffffff;
+}
+
+.wrapper2 {
+    display: inline-block;
+    margin-bottom: 0px;
+    padding-top:1px;
+    width: 100%;
+    background: #0099cc;
+}
 a.logo {
     font-size: 21px;
     color: #2e2e2e;
@@ -2321,13 +2337,13 @@ ul.inbox-pagination li {
 
 .profile-nav ul {
     margin-top: -20px;
-    margin-left: 1px;
+    margin-left: -15px;
 }
 
 .profile-nav ul > li {
-  background:#ffffff  !important;
+  background:#0099cc  !important;
     border-top-color: 8px groove #Fff;
-    color: #0099cc !important;
+    color: #ffffff !important;
 }
 
 .profile-nav ul > li:last-child {
@@ -2335,16 +2351,17 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul > li > a {
-    border-radius: 0px;
-    -webkit-border-radius: 2;
-    color: #009;
+    border-radius: 10px;
+    -webkit-border-radius: 2px;
+    color: #fff;
     /*border-left: 5px groove #f60;*/
 }
 
 .profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active  a {
-    background:#0099cc  !important;
-    border-le: 8px groove #F08124;
-    color: #ffffff !important;
+    background:#ffffff  !important;
+    border-left: 4px groove #0099cc;
+    border-bottom: 2px groove #0099cc;
+    color: #0099cc !important;
 }
 
 .profile-nav ul > li:last-child > a:last-child {
@@ -2353,9 +2370,9 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul > li > a > i{
-    font-size: 20px;
-    padding-right: 10px;
-    color: #ccc;
+    font-size: 18px;
+    padding-right: 8px;
+    color: #fffff;
 }
 
 .r-activity {
@@ -2390,8 +2407,11 @@ ul.inbox-pagination li {
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     font-size: 16px;
-    font-weight: 300;
-    margin-top:2px;
+    font-weight: 300;    
+    margin-top:-3px;
+    margin-left:-15px;
+    margin-right:-15px;
+    border-top:8px solid #f60;
 }
 
 .bio-graph-info {
