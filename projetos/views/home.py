@@ -60,6 +60,5 @@ def get_projeto_unidade():
 def get_participante_unidade():
 	mapa = {}
 	for m in Unidade.objects.all():
-		print(m)
 		mapa[m.nome] = Participante.objects.filter(unidade=m.codigo).count()
 	return mapa
