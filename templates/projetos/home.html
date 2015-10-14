@@ -12,9 +12,24 @@
                 <section class="panel">
                     <div class="row">
 
-            {% include "projetos/menu.html" %} </div>
-            <div class="bio-graph-heading">
+                      {% include "projetos/menu.html" %} </div>
+                      <div class="bio-graph-heading">
                         PRE - UFSM
+                        <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
+                          {% csrf_token %}
+                          <div class="input-group m-bot15 col-lg-3">
+                              <select class="form-control m-bot15">
+                                  <option>Todos</option>
+                                  <option>2015</option>
+                                  <option>2014</option>
+                                  <option>2013</option>
+                              </select>
+                              <span class="input-group-btn">
+                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                              </span>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                     
                 </section>
