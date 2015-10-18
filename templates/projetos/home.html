@@ -17,13 +17,43 @@
                         PRE - UFSM
                         <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
                           {% csrf_token %}
-                          <div class="input-group m-bot15 col-lg-3">
-                              <select class="form-control m-bot15">
+                          <div class="input-group m-bot20 col-lg-2">
+                              <select class="form-control m-bot20">
                                   <option>Todos</option>
                                   <option>2015</option>
                                   <option>2014</option>
                                   <option>2013</option>
+                                  <option>2012</option>
+                                  <option>2011</option>
+                                  <option>2010</option>
+                                  <option>2009</option>
+                                  <option>2008</option>
+                                  <option>2007</option>
+                                  <option>2006</option>
+                                  <option>2005</option>
+                                  <option>2004</option>
+                                  <option>2003</option>
+
                               </select>
+                              <span class="input-group-btn">
+                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                              </span>
+                          </div>
+
+                           <div class="input-group m-bot30 col-lg-2">
+                              <select class="form-control m-bot30">
+                                  <option>Todos</option>
+                                  <option>Cancelado</option>
+                                  <option>Concludo/Publicado</option>
+                                  <option>Em Andamento</option>
+                                  <option>Em Trâmite para registro</option>
+                                  <option>Indeferido</option>
+                                  <option>Renovado</option>
+                                  <option>Suspenso</option>
+                                  
+
+                              </select>
+                               
                               <span class="input-group-btn">
                                 <button type="submit" class="btn btn-white" type="button">Filtrar</button>
                               </span>
@@ -37,7 +67,7 @@
                 <section>
                     <div id="morris">
                       <div class="row">
-                          <div class="col-lg-6">
+                          <div class="col-lg-3">
                               <section class="panel">
                                 <header class="panel-heading">
                                     Projetos / Situação
@@ -48,7 +78,7 @@
                                 <div id="legend_situacao"></div>
                             </section>
                           </div>
-                          <div class="col-lg-6">
+                          <div class="col-lg-3">
                               <section class="panel">
                                 <header class="panel-heading">
                                     Participantes / Vinculo
