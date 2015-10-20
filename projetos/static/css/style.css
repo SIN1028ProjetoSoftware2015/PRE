@@ -348,8 +348,8 @@ ul.sidebar-menu li a.active i {
 /*main content*/
 
 #main-content {
-    margin-left: 40px;
-    margin-right: 40px;/*UFSM: nao tinha*/;
+    margin-left: 50px;
+    margin-right: 50px;/*UFSM: nao tinha*/;
 }
 
 .header, .footer {
@@ -2358,10 +2358,10 @@ ul.inbox-pagination li {
 }
 
 .profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active  a {
-    background:#ffffff  !important;
-    border-left: 4px groove #0099cc;
+    background:#f60  !important;
+    /*border-left: 4px groove #0099cc;*/
     border-bottom: 2px groove #0099cc;
-    color: #0099cc !important;
+    color: #ffffff !important;
 }
 
 .profile-nav ul > li:last-child > a:last-child {
