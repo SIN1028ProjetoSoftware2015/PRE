@@ -28,34 +28,35 @@
                                 <ul class="dropdown-menu">
                                     <li><a onclick="javascript:$('#seletor').html('Número <span class=\'caret\'></span>');$('#valor').attr('name', 'numero__icontains')">Número</a></li>
                                     <li><a onclick="javascript:$('#seletor').html('Título <span class=\'caret\'></span>');$('#valor').attr('name', 'titulo__icontains')">Título</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Situação <span class=\'caret\'></span>');$('#valor').attr('name', 'situacao__icontains')">Situação</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Data Inicial <span class=\'caret\'></span>');$('#valor').attr('name', 'data_inicial')">Data Inicial</a></li>
+                              <li><a onclick="javascript:$('#seletor').html('Data Inicial <span class=\'caret\'></span>');$('#valor').attr('name', 'data_inicial')">Data Inicial</a></li>
                                     <li><a onclick="javascript:$('#seletor').html('Data Conclusão <span class=\'caret\'></span>');$('#valor').attr('name', 'data_conclusao')">Data Conclusão</a></li>
                                     <li><a onclick="javascript:$('#seletor').html('Departamento <span class=\'caret\'></span>');$('#valor').attr('name', 'departamento__icontains')">Departamento</a></li>
                                 </ul>
                               </div>
-                               <input type="text" class="form-control" id="valor" name="numero" value="{{ filtro_valor }}">
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Buscar</button>
-                              </span>
+                               {% if filtro_campo and 'data_' not in filtro_campo %}
+                                <input type="text" class="form-control" id="valor" name="{{ filtro_campo }}__icontains" value="{{ filtro_valor }}">
+                               {% elif filtro_campo %}
+                                <input type="text" class="form-control" id="valor" name="{{ filtro_campo }}" value="{{ filtro_valor }}">
+                               {% else %}
+                                <input type="text" class="form-control" id="valor" name="numero" value="{{ filtro_valor }}">
+                               {% endif %}
                               
                               <div class="input-group-btn">
                                 <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
-                                  <div id="seletor">{{ filtro_nome }} <span class="caret"></span></div>
+                                  <div id="seletor_situacao">Situação {{ filtro_valor_situacao }}<span class="caret"></span></div>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Cancelado</a></li>
-
-                                    <li><a onclick="javascript:$('#seletor').html('Concluido <span class=\'caret\'></span>');$('#valor').attr('name', 'concluido__icontains')">Concluido/Publicado</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Em Andamento</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Publicado <span class=\'caret\'></span>');$('#valor').attr('name', 'publicado__icontains')">Em Trâmite para registro</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Indeferido</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Renovado</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Andamento <span class=\'caret\'></span>');$('#valor').attr('name', 'andamento__icontains')">Suspenso</a></li>
-      
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Todas <span class=\'caret\'></span>');$('#valor_situacao').val('')">Todas</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Cancelado <span class=\'caret\'></span>');$('#valor_situacao').val('Cancelado')">Cancelado</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Concluído <span class=\'caret\'></span>');$('#valor_situacao').val('Concluído')">Concluído/Publicado</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Andamento <span class=\'caret\'></span>');$('#valor_situacao').val('Andamento')">Em Andamento</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Trâmite <span class=\'caret\'></span>');$('#valor_situacao').val('Trâmite')">Em Trâmite para registro</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Indeferido <span class=\'caret\'></span>');$('#valor_situacao').val('Indeferido')">Indeferido</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Renovado <span class=\'caret\'></span>');$('#valor_situacao').val('Renovado')">Renovado</a></li>
+                                    <li><a onclick="javascript:$('#seletor_situacao').html('Suspenso <span class=\'caret\'></span>');$('#valor_situacao').val('Suspenso')">Suspenso</a></li>
                                 </ul>
                               </div>
-                              <input type="text" class="form-control" id="valor" name="numero" value="{{ filtro_valor }}">
+                              <input type="hidden" class="form-control" id="valor_situacao" name="situacao__icontains" value="{{ filtro_valor_situacao }}">
                               <span class="input-group-btn">
                                 <button type="submit" class="btn btn-white" type="button">Buscar</button>
                               </span>
