@@ -17,7 +17,7 @@ class HomeAdmin(TemplateView):
 			filtros = kwargs['params']
 		if filtros!=None and len(filtros)>0:
 			for k, v in filtros.items():
-				if 'filter_year1' in k or 'filter_year2' in k:
+				if 'filter_year1' in k or 'filter_year' in k:
 					context['filtro_nome'] = k
 					context['filtro_valor'] = v
 		context['legend_template'] = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
@@ -36,11 +36,10 @@ class HomeAdmin(TemplateView):
 			return self.render_to_response(self.get_context_data(**params))
 
 def get_situacao_projetos(filtros):
-	print("AQUII")
 	mapa = {}
-	if filtros and 'filter_year1' in filtros and filtros['filter_year1'] != 'Todos':
+	if filtros and 'filter_year' in filtros and filtros['filter_year'] != 'Todos':
 		for m in Projeto.objects.order_by().values('situacao').distinct():
-			mapa[m['situacao']] = Projeto.objects.filter(situacao=m['situacao'], data_registro__year=filtros['filter_year1']).count()
+			mapa[m['situacao']] = Projeto.objects.filter(situacao=m['situacao'], data_registro__year=filtros['filter_year']).count()
 			#print(Projeto.objects.filter(situacao=m['situacao'], data_registro__year=filtros['filter_year1']).query)
 	else:
 		for m in Projeto.objects.order_by().values('situacao').distinct():
@@ -60,9 +59,9 @@ def get_projetos_por_ano():
 
 def get_vinculo_participantes(filtros):
 	mapa = {}
-	if filtros and 'filter_year2' in filtros and filtros['filter_year2'] != 'Todos':
+	if filtros and 'filter_year' in filtros and filtros['filter_year'] != 'Todos':
 		for m in ProjetoParticipante.objects.order_by().values('vinculo').distinct():
-			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo'], data_inicial__year=filtros['filter_year2']).values('participante').distinct().count()
+			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo'], data_inicial__year=filtros['filter_year']).values('participante').distinct().count()
 	else:
 		for m in ProjetoParticipante.objects.order_by().values('vinculo').distinct():
 			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo']).values('participante').distinct().count()

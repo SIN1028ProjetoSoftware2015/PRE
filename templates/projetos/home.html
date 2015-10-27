@@ -22,21 +22,11 @@
                                     <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
                                         {% csrf_token %}
                                         <div class="input-group m-bot30 col-lg-4">
-                                            <select name="filter_year1" class="form-control m-bot30">
-                                                <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
-                                                <option {% if filtro_valor == '2015' %}selected{% endif %}>2015</option>
-                                                <option {% if filtro_valor == '2014' %}selected{% endif %}>2014</option>
-                                                <option {% if filtro_valor == '2013' %}selected{% endif %}>2013</option>
-                                                <option {% if filtro_valor == '2012' %}selected{% endif %}>2012</option>
-                                                <option {% if filtro_valor == '2011' %}selected{% endif %}>2011</option>
-                                                <option {% if filtro_valor == '2010' %}selected{% endif %}>2010</option>
-                                                <option {% if filtro_valor == '2009' %}selected{% endif %}>2009</option>
-                                                <option {% if filtro_valor == '2008' %}selected{% endif %}>2008</option>
-                                                <option {% if filtro_valor == '2007' %}selected{% endif %}>2007</option>
-                                                <option {% if filtro_valor == '2006' %}selected{% endif %}>2006</option>
-                                                <option {% if filtro_valor == '2005' %}selected{% endif %}>2005</option>
-                                                <option {% if filtro_valor == '2004' %}selected{% endif %}>2004</option>
-                                                <option {% if filtro_valor == '2003' %}selected{% endif %}>2003</option>
+                                            <select name="filter_year" class="form-control m-bot30">
+                                              <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
+                                              {% for ano, proj in projetos_por_ano.items %}
+                                                <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
+                                              {% endfor %}
                                             </select>
                                             <span class="input-group-btn">
                                               <button type="submit" class="btn btn-white" type="button">Filtrar</button>
@@ -55,30 +45,6 @@
                                 <header class="panel-heading">
                                     Participantes / Vinculo
                                 </header>
-                                <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
-                                    {% csrf_token %}
-                                    <div class="input-group m-bot30 col-lg-4">
-                                        <select name="filter_year2" class="form-control m-bot30">
-                                            <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
-                                            <option {% if filtro_valor == '2015' %}selected{% endif %}>2015</option>
-                                            <option {% if filtro_valor == '2014' %}selected{% endif %}>2014</option>
-                                            <option {% if filtro_valor == '2013' %}selected{% endif %}>2013</option>
-                                            <option {% if filtro_valor == '2012' %}selected{% endif %}>2012</option>
-                                            <option {% if filtro_valor == '2011' %}selected{% endif %}>2011</option>
-                                            <option {% if filtro_valor == '2010' %}selected{% endif %}>2010</option>
-                                            <option {% if filtro_valor == '2009' %}selected{% endif %}>2009</option>
-                                            <option {% if filtro_valor == '2008' %}selected{% endif %}>2008</option>
-                                            <option {% if filtro_valor == '2007' %}selected{% endif %}>2007</option>
-                                            <option {% if filtro_valor == '2006' %}selected{% endif %}>2006</option>
-                                            <option {% if filtro_valor == '2005' %}selected{% endif %}>2005</option>
-                                            <option {% if filtro_valor == '2004' %}selected{% endif %}>2004</option>
-                                            <option {% if filtro_valor == '2003' %}selected{% endif %}>2003</option>
-                                        </select>
-                                        <span class="input-group-btn">
-                                          <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                                        </span>
-                                    </div>
-                                </form>
                                 <div class="panel-body text-center">
                                     <canvas id="pie_vinculo" width="300"></canvas>
                                 </div>
@@ -89,16 +55,16 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
-                                <header class="panel-heading">
+                                <heai proader class="panel-heading">
                                     Projetos / Ano
-                                </header>
-                                <div class="panel-body text-center">
-                                    <canvas id="pie_projetos_por_ano" width="600" height="400"></canvas>
-                                </div>
-                                <div id="legend_projetos_por_ano"></div>
+                                    </header>
+                                    <div class="panel-body">
+                                        <div id="bar_projetos_por_ano" class="graph"></div>
+                                    </div>
                             </section>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
@@ -173,15 +139,6 @@
           },
           {% endfor %}
       ];
-      var pieProjetosPorAnoData = [
-          {% for k, v in projetos_por_ano.items %}
-          {
-              value: {{ v }},
-              color: '{{ ''|ramdom_color }}',
-              label: "{{ k }}"
-          },
-          {% endfor %}
-      ];
       myPieSituacao = new Chart(document.getElementById("pie_situacao").getContext("2d")).Pie(pieSituacaoData, {
           legendTemplate : '{{ legend_template|safe }}'
       });
@@ -190,11 +147,6 @@
           legendTemplate : '{{ legend_template|safe }}'
       });
       $("#legend_vinculo").html(myPieVinculo.generateLegend());
-      myPieProjetosPorAno = new Chart(document.getElementById("pie_projetos_por_ano").getContext("2d")).Pie(pieProjetosPorAnoData, {
-          legendTemplate : '{{ legend_template|safe }}'
-      });
-      //ESCREVE A LEGENDA DE PROJETOS POR ANO
-      //$("#legend_projetos_por_ano").html(myPieProjetosPorAno.generateLegend());
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}
             { departamento: '{{ k }}', projetos: {{ v }} },
@@ -211,6 +163,24 @@
         hideHover: 'auto',
         barColors: ['#6883a3']
       });
+
+      var barPPAData = [
+          {% for k, v in projetos_por_ano.items %}
+            { ano: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_projetos_por_ano',
+        data: barPPAData,
+        xkey: 'ano',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+
       var barProjUnidadeData = [
           {% for k, v in projeto_unidade.items %}
             { unidade: '{{ k }}', projetos: {{ v }} },
