@@ -1,229 +1,126 @@
-{% extends "projetos/index.html" %}
-{% load staticfiles %}
-{% block headercss %}
-<link href="{% static 'assets/morris.js-0.4.3/morris.css' %}" rel="stylesheet" />
-{% endblock headercss %}
-{% block content %}
+{% extends "projetos/index.html" %} {% load staticfiles %} {% block headercss %}
+<link href="{% static 'assets/morris.js-0.4.3/morris.css' %}" rel="stylesheet" /> {% endblock headercss %} {% block content %}
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-       
-            <aside class="profile-info col-lg-12">
-                <section class="panel">
+        <aside class="profile-info col-lg-12">
+            <section class="panel">
+                <div class="row">
+                    {% include "projetos/menu.html" %} </div>
+                <div class="bio-graph-heading">
+                    PRE - UFSM
+                </div>
+                </div>
+            </section>
+            <section>
+                <div id="morris">
                     <div class="row">
-
-                      {% include "projetos/menu.html" %} </div>
-                      <div class="bio-graph-heading">
-                        PRE - UFSM
-                      </div>
-                    </div>
-                </section>
-
-                <section>
-                    <div id="morris">
-                      <div class="row">
-                          <div class="col-lg-6">
-                              <section class="panel">
+                        <div class="col-lg-6">
+                            <section class="panel">
                                 <header class="panel-heading">
                                     Filtro de Situação dos Projetos por Ano
                                     <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
-                          {% csrf_token %}
-                          <div class="input-group m-bot30 col-lg-4">
-                              <select class="form-control m-bot30">
-                                  <option>Todos</option>
-                                  <option>2015</option>
-                                  <option>2014</option>
-                                  <option>2013</option>
-                                  <option>2012</option>
-                                  <option>2011</option>
-                                  <option>2010</option>
-                                  <option>2009</option>
-                                  <option>2008</option>
-                                  <option>2007</option>
-                                  <option>2006</option>
-                                  <option>2005</option>
-                                  <option>2004</option>
-                                  <option>2003</option>
-                              </select>
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                              </span>
-                          </div>
-
-                           <div class="input-group m-bot30 col-lg-6">
-                              <select class="form-control m-bot30">
-                                  <option>Todos</option>
-                                  <option>Cancelado</option>
-                                  <option>Concludo/Publicado</option>
-                                  <option>Em Andamento</option>
-                                  <option>Em Trâmite para registro</option>
-                                  <option>Indeferido</option>
-                                  <option>Renovado</option>
-                                  <option>Suspenso</option>
-                              </select>
-                               
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                              </span>
-                          </div>
-                        </form>
+                                        {% csrf_token %}
+                                        <div class="input-group m-bot30 col-lg-4">
+                                            <select name="filter_year" class="form-control m-bot30">
+                                              <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
+                                              {% for ano, proj in projetos_por_ano.items %}
+                                                <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
+                                              {% endfor %}
+                                            </select>
+                                            <span class="input-group-btn">
+                                              <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </header>
                                 <div class="panel-body text-center">
-                                    <canvas id="pie_situacao"  width="300"></canvas>
+                                    <canvas id="pie_situacao" width="300"></canvas>
                                 </div>
                                 <div id="legend_situacao"></div>
                             </section>
-                          </div>
-
-                          <div class="col-lg-6">
-                              <section class="panel">
+                        </div>
+                        <div class="col-lg-6">
+                            <section class="panel">
                                 <header class="panel-heading">
-
                                     Participantes / Vinculo
                                 </header>
-                                <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
-                          {% csrf_token %}
-                          <div class="input-group m-bot30 col-lg-4">
-                              <select class="form-control m-bot30">
-                                  <option>Todos</option>
-                              </select>
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                              </span>
-                          </div>
-
-                           <div class="input-group m-bot30 col-lg-6">
-                              <select class="form-control m-bot30">
-                                  <option>Todos</option>
-                              </select>
-                               
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                              </span>
-                          </div>
-                        </form>
                                 <div class="panel-body text-center">
-                                    <canvas id="pie_vinculo"  width="300"></canvas>
+                                    <canvas id="pie_vinculo" width="300"></canvas>
                                 </div>
                                 <div id="legend_vinculo"></div>
                             </section>
-                          </div>
-                      </div>
-
-                      <div class="row">
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
-                              <header class="panel-heading">
-                                  Projetos / Ano
-                              </header>
-                              <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
-                          {% csrf_token %}
-                          <div class="input-group m-bot30 col-lg-4">
-                              <select class="form-control m-bot30">
-                                  <option>Todos</option>
-                                  <option>2015</option>
-                                  <option>2014</option>
-                                  <option>2013</option>
-                                  <option>2012</option>
-                                  <option>2011</option>
-                                  <option>2010</option>
-                                  <option>2009</option>
-                                  <option>2008</option>
-                                  <option>2007</option>
-                                  <option>2006</option>
-                                  <option>2005</option>
-                                  <option>2004</option>
-                                  <option>2003</option>
-                                  <option>2002</option>
-                                  <option>2001</option>
-                                  <option>2000</option>
-                                  <option>1999</option>
-                                  <option>1998</option>
-                                  <option>1997</option>
-                                  <option>1996</option>
-                                  <option>1995</option>
-                                  <option>1994</option>
-                                  <option>1993</option>
-                                  <option>1992</option>
-                                  <option>1991</option>
-                                  <option>1991</option>
-                                  <option>1990</option>
-                                  <option>1989</option>
-                                  <option>1988</option>
-                              </select>
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                              </span>
-                          </div>
-                              </header>
-                              <div class="panel-body text-center">
-                                  <canvas id="pie_projetos_por_ano" width="600" height="400"></canvas>
-                              </div>
-                              <div id="legend_projetos_por_ano"></div>
-                          </section>
+                                <heai proader class="panel-heading">
+                                    Projetos / Ano
+                                    </header>
+                                    <div class="panel-body">
+                                        <div id="bar_projetos_por_ano" class="graph"></div>
+                                    </div>
+                            </section>
                         </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-lg-12">
-                              <section class="panel">
-                                  <heai proader class="panel-heading">
-                                      Projetos / Departamento
-                                  </header>
-                                  <div class="panel-body">
-                                      <div id="bar_departamento" class="graph"></div>
-                                  </div>
-                              </section>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-lg-12">
-                              <section class="panel">
-                                  <header class="panel-heading">
-                                      Projetos / Unidade
-                                  </header>
-                                  <div class="panel-body">
-                                      <div id="bar_unidade_proj" class="graph"></div>
-                                  </div>
-                              </section>
-                          </div>
-                      </div>
-                      <div class="row">
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-lg-12">
-                              <section class="panel">
-                                  <header class="panel-heading">
-                                      Participantes / Unidade
-                                  </header>
-                                  <div class="panel-body">
-                                      <div id="bar_unidade_part" class="graph"></div>
-                                  </div>
-                              </section>
-                          </div>
-                      </div>
-                  </div>
-                  </section>
-            </aside>
+                            <section class="panel">
+                                <heai proader class="panel-heading">
+                                    Projetos / Departamento
+                                    </header>
+                                    <div class="panel-body">
+                                        <div id="bar_departamento" class="graph"></div>
+                                    </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Projetos / Unidade
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_unidade_proj" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Participantes / Unidade
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_unidade_part" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
         </div>
         <!-- page end-->
     </section>
 </section>
-{% endblock content %} 
-
-{% block pluginsjs %}
+{% endblock content %} {% block pluginsjs %}
 <script src="{% static 'assets/chart-master/Chart2.js' %}"></script>
 <script src="{% static 'assets/morris.js-0.4.3/morris.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/morris.js-0.4.3/raphael-min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/jquery-knob/js/jquery.knob.js' %}"></script>
-{% endblock pluginsjs %}
-
-{% block js-foot %}
-  <script>
+{% endblock pluginsjs %} {% block js-foot %}
+<script>
     $(function() {
       $(".knob").knob({
         'draw' : function () { 
           $(this.i).val(this.cv + '%')
         }
       });
-
       var pieSituacaoData = [
           {% for k, v in projeto_situacao.items %}
           {
@@ -233,7 +130,6 @@
           },
           {% endfor %}
       ];
-
       var pieVinculoData = [
           {% for k, v in vinculo_participantes.items %}
           {
@@ -243,43 +139,40 @@
           },
           {% endfor %}
       ];
-
-      var pieProjetosPorAnoData = [
-          {% for k, v in projetos_por_ano.items %}
-          {
-              value: {{ v }},
-              color: '{{ ''|ramdom_color }}',
-              label: "{{ k }}"
-          },
-          {% endfor %}
-      ];
-
       myPieSituacao = new Chart(document.getElementById("pie_situacao").getContext("2d")).Pie(pieSituacaoData, {
           legendTemplate : '{{ legend_template|safe }}'
       });
       $("#legend_situacao").html(myPieSituacao.generateLegend());
-
       myPieVinculo = new Chart(document.getElementById("pie_vinculo").getContext("2d")).Pie(pieVinculoData, {
           legendTemplate : '{{ legend_template|safe }}'
       });
       $("#legend_vinculo").html(myPieVinculo.generateLegend());
-
-      myPieProjetosPorAno = new Chart(document.getElementById("pie_projetos_por_ano").getContext("2d")).Pie(pieProjetosPorAnoData, {
-          legendTemplate : '{{ legend_template|safe }}'
-      });
-      //ESCREVE A LEGENDA DE PROJETOS POR ANO
-      //$("#legend_projetos_por_ano").html(myPieProjetosPorAno.generateLegend());
-
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}
             { departamento: '{{ k }}', projetos: {{ v }} },
           {% endfor %}
       ]
-
       Morris.Bar({
         element: 'bar_departamento',
         data: barDepartamentoData,
         xkey: 'departamento',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+
+      var barPPAData = [
+          {% for k, v in projetos_por_ano.items %}
+            { ano: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_projetos_por_ano',
+        data: barPPAData,
+        xkey: 'ano',
         ykeys: ['projetos'],
         labels: ['Projetos'],
         barRatio: 0.4,
@@ -293,7 +186,6 @@
             { unidade: '{{ k }}', projetos: {{ v }} },
           {% endfor %}
       ]
-
       Morris.Bar({
         element: 'bar_unidade_proj',
         data: barProjUnidadeData,
@@ -305,14 +197,11 @@
         hideHover: 'auto',
         barColors: ['#6883a3']
       });
-
-
       var barPartUnidadeData = [
           {% for k, v in participante_unidade.items %}
             { unidade: '{{ k }}', partipante: {{ v }} },
           {% endfor %}
       ]
-
       Morris.Bar({
         element: 'bar_unidade_part',
         data: barPartUnidadeData,
@@ -324,10 +213,9 @@
         hideHover: 'auto',
         barColors: ['#6883a3']
       });
-
-
     });
-  </script>
+</script>
 {% endblock %}
-  </body>
+</body>
+
 </html>

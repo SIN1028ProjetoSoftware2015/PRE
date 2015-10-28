@@ -21,6 +21,7 @@ class ProjetosAdmin(TemplateView):
 		context['total_participantes'] = Participante.objects.count()
 		context['total_projetos'] = Projeto.objects.count()
 		context['filtro_nome'] = 'Número'
+		context['filtro_campo'] = 'numero'
 		context['filtro_valor'] = ''
 		if 'params' in kwargs:
 			filtros = kwargs['params']
@@ -32,23 +33,29 @@ class ProjetosAdmin(TemplateView):
 			kwargs['params'] = {}
 		if filtros!=None and len(filtros)>0:
 			for k, v in filtros.items():
+				print('Filtro: ', k, v)
 				if 'numero' in k:
 					context['filtro_nome'] = 'Número'
+					context['filtro_campo'] = 'numero'
 					context['filtro_valor'] = v
 				elif 'titulo' in k:
 					context['filtro_nome'] = 'Título'
+					context['filtro_campo'] = 'titulo'
 					context['filtro_valor'] = v
 				elif 'situacao' in k:
-					context['filtro_nome'] = 'Situação'
-					context['filtro_valor'] = v
+					context['filtro_nome_situacao'] = 'Situação'
+					context['filtro_valor_situacao'] = v
 				elif 'data_inicial' in k:
 					context['filtro_nome'] = 'Data Inicial'
+					context['filtro_campo'] = 'data_inicial'
 					context['filtro_valor'] = datetime.strptime(v.split(' ')[0], '%Y-%m-%d').strftime('%d/%m/%Y')
 				elif 'data_conclusao' in k:
 					context['filtro_nome'] = 'Data Conclusão'
+					context['filtro_campo'] = 'data_conclusao'
 					context['filtro_valor'] = datetime.strptime(v.split(' ')[0], '%Y-%m-%d').strftime('%d/%m/%Y')
 				elif 'departamento' in k:
 					context['filtro_nome'] = 'Departamento'
+					context['filtro_campo'] = 'departamento'
 					context['filtro_valor'] = v
 
 		return paginar(kwargs, Projeto, 'numero', context, self.listFields, order_type='asc')
@@ -72,6 +79,8 @@ class ProjetosAdmin(TemplateView):
 					request.POST['data_conclusao__lte'] = str(datetime.combine(data_final, time.max))
 				except:
 					pass
+			for p, v in request.POST.items():
+				print(">>>>>> Parametro:", p, v)
 			params = {'params': dict((p, v) for p, v in request.POST.items() if p.split('__')[0] in self.listFields and v != None and len(v) > 0)}
 			return self.render_to_response(self.get_context_data(**params))
 
