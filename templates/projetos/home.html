@@ -65,42 +65,6 @@
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <heai proader class="panel-heading">
-                                    Projetos / Departamento
-                                    </header>
-                                    <div class="panel-body">
-                                        <div id="bar_departamento" class="graph"></div>
-                                    </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    Projetos / Unidade
-                                </header>
-                                <div class="panel-body">
-                                    <div id="bar_unidade_proj" class="graph"></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    Participantes / Unidade
-                                </header>
-                                <div class="panel-body">
-                                    <div id="bar_unidade_part" class="graph"></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
                 </div>
             </section>
         </aside>
@@ -147,23 +111,7 @@
           legendTemplate : '{{ legend_template|safe }}'
       });
       $("#legend_vinculo").html(myPieVinculo.generateLegend());
-      var barDepartamentoData = [
-          {% for k, v in projeto_departamento.items %}
-            { departamento: '{{ k }}', projetos: {{ v }} },
-          {% endfor %}
-      ]
-      Morris.Bar({
-        element: 'bar_departamento',
-        data: barDepartamentoData,
-        xkey: 'departamento',
-        ykeys: ['projetos'],
-        labels: ['Projetos'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        barColors: ['#6883a3']
-      });
-
+      
       var barPPAData = [
           {% for k, v in projetos_por_ano.items %}
             { ano: '{{ k }}', projetos: {{ v }} },
@@ -181,38 +129,7 @@
         barColors: ['#6883a3']
       });
 
-      var barProjUnidadeData = [
-          {% for k, v in projeto_unidade.items %}
-            { unidade: '{{ k }}', projetos: {{ v }} },
-          {% endfor %}
-      ]
-      Morris.Bar({
-        element: 'bar_unidade_proj',
-        data: barProjUnidadeData,
-        xkey: 'unidade',
-        ykeys: ['projetos'],
-        labels: ['Projetos'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        barColors: ['#6883a3']
-      });
-      var barPartUnidadeData = [
-          {% for k, v in participante_unidade.items %}
-            { unidade: '{{ k }}', partipante: {{ v }} },
-          {% endfor %}
-      ]
-      Morris.Bar({
-        element: 'bar_unidade_part',
-        data: barPartUnidadeData,
-        xkey: 'unidade',
-        ykeys: ['partipante'],
-        labels: ['Participantes'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        barColors: ['#6883a3']
-      });
+      
     });
 </script>
 {% endblock %}
