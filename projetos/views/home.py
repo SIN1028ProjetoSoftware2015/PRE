@@ -23,9 +23,6 @@ class HomeAdmin(TemplateView):
 		context['legend_template'] = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
 		context['projeto_situacao'] = get_situacao_projetos(filtros)
 		context['vinculo_participantes'] = get_vinculo_participantes(filtros)
-		context['projeto_departamento'] = get_projeto_departamento()
-		context['projeto_unidade'] = get_projeto_unidade()
-		context['participante_unidade'] = get_participante_unidade()
 		context['projetos_por_ano'] = get_projetos_por_ano()
 		return context
 
@@ -67,20 +64,3 @@ def get_vinculo_participantes(filtros):
 			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo']).values('participante').distinct().count()
 	return mapa
 
-def get_projeto_departamento():
-	mapa = {}
-	for m in Projeto.objects.order_by().values('departamento').distinct():
-		mapa[m['departamento']] = Projeto.objects.filter(departamento=m['departamento']).count()
-	return mapa
-
-def get_projeto_unidade():
-	mapa = {}
-	for m in Unidade.objects.all():
-		mapa[m.nome] = ProjetoUnidade.objects.filter(unidade=m.codigo).count()
-	return mapa
-
-def get_participante_unidade():
-	mapa = {}
-	for m in Unidade.objects.all():
-		mapa[m.nome] = Participante.objects.filter(unidade=m.codigo).count()
-	return mapa
