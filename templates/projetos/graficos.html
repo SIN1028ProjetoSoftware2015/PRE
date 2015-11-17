@@ -23,23 +23,14 @@
                                     <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
                                         {% csrf_token %}
                                         <div class="checkboxes input-group m-bot30 col-lg-12">
-                                            <label class="label_check" for="checkbox-03">
-                                            {% for k, v in projeto_departamento.items %}
-                                            <input name="departamentos" type="checkbox" />{{k}}</label>
+                                            {% for k, v in projeto_departamento_todos.items %}
+                                                <label class="label_check" for="{{v.id}}">
+                                                <input name="{{v.id}}" id="{{v.id}}" type="checkbox" {% if v.id in filtro_deps %} checked {% endif %} /> {{k}} </label>
                                             {% endfor %}
-
-
-                                            <!-- <select name="filter_year" class="form-control m-bot30">
-                                              <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
-                                              {% for ano, proj in projetos_por_ano.items %}
-                                                <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
-                                              {% endfor %}
-                                            </select>
-                                            <span class="input-group-btn">
-                                              <button type="submit" class="btn btn-white" type="button">Filtrar</button>
-                                            </span>
-                                            -->
                                         </div>
+                                        <span class="input-group-btn">
+                                          <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                                        </span>
                                     </form>
                                 </header>
                                 <div class="panel-body">
@@ -95,7 +86,7 @@
       
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}
-            { departamento: '{{ k }}', projetos: {{ v }} },
+            { departamento: '{{ k }}', projetos: {{ v.count }} },
           {% endfor %}
       ]
       Morris.Bar({

@@ -13,9 +13,11 @@ cont_vinc=0
 cont_dupl=0
 ai_responsavel = 1
 ai_unidade = 1
+ai_departamento = 1
 lista_projetos = []
 lista_participantes = []
 mapa_unidade = {}
+mapa_departamento = {}
 lista_projeto_unidade = []
 
 #conexao com o banco
@@ -28,6 +30,7 @@ metadata = MetaData(engine)
 tbl_projetos = Table('projetos_projeto', metadata, autoload=True)
 tbl_participantes = Table('projetos_participante', metadata, autoload=True)
 tbl_unidade = Table('projetos_unidade', metadata, autoload=True)
+tbl_departamento = Table('projetos_departamento', metadata, autoload=True)
 tbl_proj_part = Table('projetos_projetoparticipante', metadata, autoload=True)
 tbl_proj_unit = Table('projetos_projetounidade', metadata, autoload=True)
 tbl_responsavel = Table('projetos_responsavel', metadata, autoload=True)
@@ -83,12 +86,23 @@ def delete_all():
 	conn.execute(ins)
 	ins = tbl_unidade.delete()
 	conn.execute(ins)
+	ins = tbl_departamento.delete()
+	conn.execute(ins)
 
 
 def processa_projeto(x):
-	global ai_responsavel, cont, lista_projetos
+	global ai_responsavel, ai_departamento, cont, lista_projetos, mapa_departamento
 	if len(x) == 24 and is_valido(converte(x[1])):
 		try:
+			if converte(x[14]) not in mapa_departamento:
+				ins = tbl_departamento.insert().values(
+					codigo = ai_departamento,
+					nome = converte(x[14])
+				)
+				ins.compile().params
+				conn.execute(ins)
+				mapa_departamento[converte(x[14])] = ai_departamento
+				ai_departamento+=1
 			if converte(x[1]) not in lista_projetos:
 				ins = tbl_projetos.insert().values(
 					numero = converte(x[1]),
@@ -101,7 +115,7 @@ def processa_projeto(x):
 					valor_previsto = converte(x[8]),
 					data_ult_aval = converte(x[9]),
 					situacao = converte(x[10]),
-					departamento = converte(x[14])
+					departamento_id = mapa_departamento[converte(x[14])]
 				)
 				ins.compile().params
 				conn.execute(ins)

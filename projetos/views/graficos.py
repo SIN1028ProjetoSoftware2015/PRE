@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from projetos.models import Projeto, Participante, ProjetoParticipante, Unidade, ProjetoUnidade
+from projetos.models import Projeto, Participante, ProjetoParticipante, Unidade, ProjetoUnidade, Departamento
 from projetos import utils
 import datetime
 
@@ -13,17 +13,19 @@ class GraficosAdmin(TemplateView):
 		context['total_participantes'] = Participante.objects.count()
 		context['total_projetos'] = Projeto.objects.count()
 		filtros = None
+		context['filtro_deps'] = None
 		if 'params' in kwargs:
 			filtros = kwargs['params']
 		if filtros!=None and len(filtros)>0:
+			context['filtro_deps'] = []
 			for k, v in filtros.items():
-				if 'filter_year1' in k or 'filter_year' in k:
-					context['filtro_nome'] = k
-					context['filtro_valor'] = v
+				if 'csrfmiddlewaretoken' not in k:
+					context['filtro_deps'].append(k)
 		context['legend_template'] = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-		context['projeto_departamento'] = get_projeto_departamento()
 		context['projeto_unidade'] = get_projeto_unidade()
 		context['participante_unidade'] = get_participante_unidade()
+		context['projeto_departamento'] = get_projeto_departamento(context['filtro_deps'])
+		context['projeto_departamento_todos'] = get_projeto_departamento_todos()
 		return context
 
 	def post(self, request, *args, **kwargs):
@@ -32,10 +34,25 @@ class GraficosAdmin(TemplateView):
 			params = {'params': dict((p, v) for p, v in request.POST.items() if v != None and len(v) > 0)}
 			return self.render_to_response(self.get_context_data(**params))
 
-def get_projeto_departamento():
+def get_projeto_departamento(filtros):
 	mapa = {}
-	for m in Projeto.objects.order_by().values('departamento').distinct():
-		mapa[m['departamento']] = Projeto.objects.filter(departamento=m['departamento']).count()
+	if filtros:
+		for m in Departamento.objects.filter(codigo__in=filtros).order_by('nome'):
+			mapa[m.nome] = {}
+			mapa[m.nome]['count'] = Projeto.objects.filter(departamento_id=m.codigo).count()
+			mapa[m.nome]['id'] = m.codigo
+	else:
+		for m in Departamento.objects.all().order_by('nome'):
+			mapa[m.nome] = {}
+			mapa[m.nome]['count'] = Projeto.objects.filter(departamento_id=m.codigo).count()
+			mapa[m.nome]['id'] = m.codigo
+	return mapa
+
+def get_projeto_departamento_todos():
+	mapa = {}
+	for m in Departamento.objects.all():
+		mapa[m.nome] = {}
+		mapa[m.nome]['id'] = str(m.codigo)
 	return mapa
 
 def get_projeto_unidade():
