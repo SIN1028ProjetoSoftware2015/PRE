@@ -26,7 +26,7 @@ class HomeAdmin(TemplateView):
 		context['projeto_departamento'] = get_projeto_departamento()
 		context['projeto_unidade'] = get_projeto_unidade()
 		context['participante_unidade'] = get_participante_unidade()
-		context['projetos_por_ano'] = get_projetos_por_ano(filtros)
+		context['projetos_por_ano'] = get_projetos_por_ano()
 		return context
 
 	def post(self, request, *args, **kwargs):
@@ -49,7 +49,7 @@ def get_situacao_projetos(filtros):
 			
 	return mapa	
 
-def get_projetos_por_ano(filtros):
+def get_projetos_por_ano():
 	mapa = {}
 	for m in Projeto.objects.order_by().values('data_conclusao').distinct():
 		if 'data_conclusao' in m and m['data_conclusao'] != None and type(m['data_conclusao']) == datetime.datetime:

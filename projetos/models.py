@@ -3,6 +3,11 @@ from django.db import models
 # Create your models here.
 #Modelo do banco de dados
 
+class Departamento(models.Model):
+
+	codigo = models.IntegerField(primary_key=True)
+	nome = models.CharField(blank=False, null=False, max_length=256)
+
 class Projeto(models.Model):
 
 	numero = models.CharField(max_length=20, primary_key=True)
@@ -15,8 +20,7 @@ class Projeto(models.Model):
 	valor_previsto = models.CharField(max_length=20, blank=True, null=True)
 	data_ult_aval = models.DateTimeField(blank=True, null=True)
 	situacao = models.CharField(max_length=80, blank=True, null=True)
-	departamento = models.CharField(max_length=80, blank=True, null=True)
-
+	departamento = models.ForeignKey(Departamento, blank=False, null=False)
 
 class Unidade(models.Model):
 
