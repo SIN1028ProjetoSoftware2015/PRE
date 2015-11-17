@@ -1,0 +1,207 @@
+{% extends "projetos/index.html" %} {% load staticfiles %} {% block headercss %}
+<link href="{% static 'assets/morris.js-0.4.3/morris.css' %}" rel="stylesheet" /> {% endblock headercss %} {% block content %}
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <aside class="profile-info col-lg-12">
+            <section class="panel">
+                <div class="row">
+                    {% include "projetos/menu.html" %} </div>
+                <div class="bio-graph-heading">
+                    PRE - UFSM
+                </div>
+                </div>
+            </section>
+            <section>
+                <div id="morris">                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                
+                                <header proader class="panel-heading">
+                                  Filtro - Projetos / Departamento
+                                    <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
+                                        {% csrf_token %}
+                                        <div class="checkboxes input-group m-bot30 col-lg-12">
+                                            <label class="label_check" for="checkbox-03">
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" /> ARTES VISUAIS.</label> 
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" /> ACESSORIAS.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL – CAL.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL  – CCR.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL  – CCSH.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL – CE.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL  – CEFD.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIBLIOTECA SETORIAL  – CT.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />BIOTÉRIO.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" /> CENTRO DE CIÊNCIAS DA SAÚDE - CCS.</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CENTRO DE CIÊNCIAS RURAIS - CCR</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CENTRO DE CIÊNCIAS SOCIAIS E HUMANAS - CCSH</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CENTRO DE EDUCAÇÃO FÍSICA E DESPORTOS - CEFD</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CENTRO DE TECNOLOGIA - CT</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />COLÉGIO TÉCNICO INDUSTRIAL - CTISM</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CONSELHO DO CENTRO - CE</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />COORDENAÇÃO CLÍNICA MÉDICA-HUSM</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />COORDENAÇÃO DE RECURSOS HUMANOS-HUSM</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CORAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO  PG-E GESTÃO EDUCACIONAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO ARQUITETURA E URBANISMO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE ADMINISTRAÇÃO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE AGRONOMIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE ARQUIVOLOGIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE ARTES CÊNICAS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE CIÊNCIAS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE CIÊNCIA DA COMPUTAÇÃO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE CIÊNCIAS CONTÁBEIS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE CIÊNCIAS ECONÔMICAS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE COMUNICAÇÃO SOCIAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE DESENHO INDUSTRIAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE DIREITO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE EDUCAÇÃO FÍSICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE FONOAUDIOLOGIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE LETRAS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE MÚSICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE ZOOTECNIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DE ODONTOLOGIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO DESENHO E PLÁSTICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO ENGENHARIA FLORESTAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO ENGENHARIA CIVIL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO ENGENHARIA ELÉTRICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO ENGENHARIA QUÍMICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-E DESIGN PARA ESTAMPARIA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-E ARTE E VISUALIDADE</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-E MATEMÁTICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-E EDUCAÇÃO AMBIENTAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-M INTEGRAÇÃO LATINO-AMERICANA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO PG-M  LETRAS</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG EM EDUCAÇÃO - PPGE</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO TECNÓLOGO EM COOPERATIVISMO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG ENG. ELÉTRICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA DE PÓS-GRADUAÇÃO EM INFORMÁTICA</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG ENG. FLORESTAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG PROFISSIONALIZANTE EM PATRIMÔNIO CULTURAL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG ENG. PRODUÇÃO</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />CURSO-PROGRAMA PG ENGENHARIA CIVIL</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />DEPTO. ANÁLISES CLÍNICAS E TOXICOLÓGICAS - ACT</label>
+                                            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox" />DEPTO.  METODOLOGIA DO ENSINO - MEN</label>
+                                           
+
+                                            <!-- <select name="filter_year" class="form-control m-bot30">
+                                              <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
+                                              {% for ano, proj in projetos_por_ano.items %}
+                                                <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
+                                              {% endfor %}
+                                            </select>
+                                            <span class="input-group-btn">
+                                              <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                                            </span>
+                                            -->
+                                        </div>
+                                    </form>
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_departamento" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Projetos / Unidade
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_unidade_proj" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Participantes / Unidade
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_unidade_part" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+        </div>
+        <!-- page end-->
+    </section>
+</section>
+{% endblock content %} {% block pluginsjs %}
+<script src="{% static 'assets/chart-master/Chart2.js' %}"></script>
+<script src="{% static 'assets/morris.js-0.4.3/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/morris.js-0.4.3/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/jquery-knob/js/jquery.knob.js' %}"></script>
+{% endblock pluginsjs %} {% block js-foot %}
+<script>
+    $(function() {
+      $(".knob").knob({
+        'draw' : function () { 
+          $(this.i).val(this.cv + '%')
+        }
+      });
+      
+      var barDepartamentoData = [
+          {% for k, v in projeto_departamento.items %}
+            { departamento: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_departamento',
+        data: barDepartamentoData,
+        xkey: 'departamento',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+
+
+      var barProjUnidadeData = [
+          {% for k, v in projeto_unidade.items %}
+            { unidade: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_unidade_proj',
+        data: barProjUnidadeData,
+        xkey: 'unidade',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+      var barPartUnidadeData = [
+          {% for k, v in participante_unidade.items %}
+            { unidade: '{{ k }}', partipante: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_unidade_part',
+        data: barPartUnidadeData,
+        xkey: 'unidade',
+        ykeys: ['partipante'],
+        labels: ['Participantes'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+    });
+</script>
+{% endblock %}
+</body>
+
+</html>
