@@ -41,20 +41,26 @@ def get_situacao_projetos(filtros):
 		for m in Projeto.objects.order_by().values('situacao').distinct():
 			mapa[m['situacao']] = Projeto.objects.filter(situacao=m['situacao'], data_registro__year=filtros['filter_year']).count()
 			#print(Projeto.objects.filter(situacao=m['situacao'], data_registro__year=filtros['filter_year1']).query)
+			
+		
 	else:
 		for m in Projeto.objects.order_by().values('situacao').distinct():
 			mapa[m['situacao']] = Projeto.objects.filter(situacao=m['situacao']).count()
-	return mapa
+			
+	return mapa	
 
 def get_projetos_por_ano():
 	mapa = {}
-	for m in Projeto.objects.order_by().values('data_conclusao'):
+	for m in Projeto.objects.order_by().values('data_conclusao').distinct():
 		if 'data_conclusao' in m and m['data_conclusao'] != None and type(m['data_conclusao']) == datetime.datetime:
 			if m['data_conclusao'].year in mapa:
 				mapa[m['data_conclusao'].year] = mapa[m['data_conclusao'].year] + 1
 			else:
 				mapa[m['data_conclusao'].year] = 1
+
+			
 	return mapa
+	
 
 
 def get_vinculo_participantes(filtros):
@@ -64,7 +70,7 @@ def get_vinculo_participantes(filtros):
 			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo'], data_inicial__year=filtros['filter_year']).values('participante').distinct().count()
 	else:
 		for m in ProjetoParticipante.objects.order_by().values('vinculo').distinct():
-			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo']).values('participante').distinct().count()
+			mapa[m['vinculo']] = ProjetoParticipante.objects.filter(vinculo=m['vinculo']).count()
 	return mapa
 
 def get_projeto_departamento():

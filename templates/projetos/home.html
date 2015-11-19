@@ -22,20 +22,23 @@
                                     <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
                                         {% csrf_token %}
                                         <div class="input-group m-bot30 col-lg-4">
-                                            <select name="filter_year" class="form-control m-bot30">
+                                            <select name="filter_year" class="selectpicker" data-style="btn-primary">
+                                              
                                               <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
                                               {% for ano, proj in projetos_por_ano.items %}
                                                 <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
                                               {% endfor %}
+
                                             </select>
                                             <span class="input-group-btn">
-                                              <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                                              <button type="submit" class="selectpicker" data-style="btn-info">Filtrar</button>
                                             </span>
                                         </div>
                                     </form>
                                 </header>
                                 <div class="panel-body text-center">
                                     <canvas id="pie_situacao" width="300"></canvas>
+
                                 </div>
                                 <div id="legend_situacao"></div>
                             </section>
@@ -65,6 +68,12 @@
                         </div>
                     </div>
                     
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <heai proader class="panel-heading">
+                                    
                 </div>
             </section>
         </aside>
@@ -85,14 +94,19 @@
           $(this.i).val(this.cv + '%')
         }
       });
-      var pieSituacaoData = [
+
+      var pieSituacaoData = [          
+
           {% for k, v in projeto_situacao.items %}
           {
               value: {{ v }},
               color: '{{ ''|ramdom_color }}',
               label: "{{ k }}"
           },
+
           {% endfor %}
+          
+           
       ];
       var pieVinculoData = [
           {% for k, v in vinculo_participantes.items %}
@@ -102,6 +116,7 @@
               label: "{{ k }}"
           },
           {% endfor %}
+
       ];
       myPieSituacao = new Chart(document.getElementById("pie_situacao").getContext("2d")).Pie(pieSituacaoData, {
           legendTemplate : '{{ legend_template|safe }}'
@@ -116,6 +131,7 @@
           {% for k, v in projetos_por_ano.items %}
             { ano: '{{ k }}', projetos: {{ v }} },
           {% endfor %}
+
       ]
       Morris.Bar({
         element: 'bar_projetos_por_ano',

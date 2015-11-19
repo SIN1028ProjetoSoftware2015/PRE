@@ -25,6 +25,7 @@ class ParticipantesAdmin(TemplateView):
 		if 'params' in kwargs:
 			filtros = kwargs['params']
 		elif 'page' in kwargs and filtros != None:
+			
 			kwargs['params'] = filtros
 		elif 'params' not in kwargs:
 			filtros = None
