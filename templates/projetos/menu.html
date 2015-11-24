@@ -8,12 +8,16 @@
         <ul class="nav navbar-nav">
          	
             <li {% if menu == 'home' %}class="active"{% endif %}><a href="{% url 'site:home' %}"> <i class="icon-home"></i> Inicial</a></li>
+<<<<<<< HEAD
             <li {% if menu == 'Filtro Projeto/Departamento' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Filtro Projeto/Departamento</a></li>
             
             <li {% if menu == 'Filtro Projeto/Departamento' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Filtro Projeto/Unidade</a></li>
             
              <li {% if menu == 'Filtro Projeto/Departamento' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Filtro Projeto/Unidade</a></li>
 
+=======
+            <li {% if menu == 'graficos' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Visualização de Projetos</a></li>
+>>>>>>> 118589a2ae32e492c1c09c71d4d0d4439d27c112
             <li {% if menu == 'participantes' %}class="active"{% endif %}><a href="{% url 'site:participantes' %}"> <i class="icon-user"></i> Participantes <span class="label label-danger pull-right label-quantidade">{{ total_participantes }}</span></a></li>
             <li {% if menu == 'projetos' %}class="active"{% endif %}><a href="{% url 'site:projetos' %}"> <i class="icon-calendar"></i> Projetos <span class="label label-danger pull-right label-quantidade">{{ total_projetos }}</span></a></li>
             <li {% if menu == 'sobre' %}class="active"{% endif %}><a href="{% url 'site:sobre' %}"> <i class="icon-star"></i> Sobre (PRE) </a></li>
