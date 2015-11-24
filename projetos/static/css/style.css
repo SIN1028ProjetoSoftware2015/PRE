@@ -392,6 +392,59 @@ ul.sidebar-menu li a.active i {
     width: 100%;
     background: #0099cc;
 }
+
+.nav li ul{
+   list-style:none; 
+   position:absolute;
+}
+.submenu{
+    margin-left:50;
+    list-style:none;
+    display:none;
+    width:205px;
+    position:absolute;
+    top:72px;
+    float: left;
+}
+ 
+.nav li:hover .submenu{
+    display:block;
+    background: #ffffff;
+    margin-left: 2px;
+    float: left;
+     height: 20px;
+}
+ 
+.submenu li a:link,
+.submenu li a:visited{
+    display: block;
+    padding: 2px;
+    /*border-left: 5px #ffffff solid;*/
+    background: #ffffff;
+    text-decoration: none;
+    width: 205px;
+    color: #000000;
+    font-size: 15px;
+    /*margin-left: 3px;*/
+    height: 20px;
+
+}
+ 
+.submenu li:hover a,
+.submenu li a:active,
+.submenu li a:hover{
+    display: block;
+    padding: 2px;
+    /*border-left: 2px #ffffff solid;*/
+    background: #ffffff;
+    text-decoration: none;
+    width: 215px;
+    color: #000000;
+    font-weight: bold;
+    margin-left: 5px; 
+    height: 20px;   
+}
+
 a.logo {
     font-size: 21px;
     color: #2e2e2e;
@@ -4288,7 +4341,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 }
 
 .horizontal-menu .navbar-nav > li > a {
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     padding-top: 100px;
 }
 

@@ -4,15 +4,25 @@
 <section class="wrapper2">
  <aside class="profile-nav col-lg-12">
     <section class="panel">
-        
+       <div id="menu">
         <ul class="nav navbar-nav">
          	
             <li {% if menu == 'home' %}class="active"{% endif %}><a href="{% url 'site:home' %}"> <i class="icon-home"></i> Inicial</a></li>
-            <li {% if menu == 'graficos' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Visualização de Projetos</a></li>
+            <li {% if menu == 'graficos' %}class="active"{% endif %}><a href="{% url 'site:graficos' %}"> <i class="icon-bar-chart"></i> Visualização de Projetos</a> 
+                <ul class="submenu">
+                    <li><a href="{% url 'site:departamento' %}" <i class="icon-bar-chart" title="projeto/departamento"> Projeto/Departamento</a></li>
+                    <li><a href="{% url 'site:unidade' %}" <i class="icon-bar-chart" title="projeto/unidade"> Projeto/Unidade </a></li>
+                    <li><a href="{% url 'site:participante' %}" <i class="icon-bar-chart" title="participante/unidade"> Participante/Unidade </a></li>
+                </ul>
+            </li>
+        
             <li {% if menu == 'participantes' %}class="active"{% endif %}><a href="{% url 'site:participantes' %}"> <i class="icon-user"></i> Participantes <span class="label label-danger pull-right label-quantidade">{{ total_participantes }}</span></a></li>
             <li {% if menu == 'projetos' %}class="active"{% endif %}><a href="{% url 'site:projetos' %}"> <i class="icon-calendar"></i> Projetos <span class="label label-danger pull-right label-quantidade">{{ total_projetos }}</span></a></li>
             <li {% if menu == 'sobre' %}class="active"{% endif %}><a href="{% url 'site:sobre' %}"> <i class="icon-star"></i> Sobre (PRE) </a></li>
         </ul>
+    </div>
+
     </section>
   </aside>
 </section>
+
