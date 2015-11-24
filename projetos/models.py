@@ -21,6 +21,7 @@ class Projeto(models.Model):
 	data_ult_aval = models.DateTimeField(blank=True, null=True)
 	situacao = models.CharField(max_length=80, blank=True, null=True)
 	departamento = models.ForeignKey(Departamento, blank=False, null=False)
+	
 
 class Unidade(models.Model):
 

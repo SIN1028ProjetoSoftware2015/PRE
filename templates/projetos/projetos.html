@@ -30,7 +30,7 @@
                                     <li><a onclick="javascript:$('#seletor').html('Título <span class=\'caret\'></span>');$('#valor').attr('name', 'titulo__icontains')">Título</a></li>
                               <li><a onclick="javascript:$('#seletor').html('Data Inicial <span class=\'caret\'></span>');$('#valor').attr('name', 'data_inicial')">Data Inicial</a></li>
                                     <li><a onclick="javascript:$('#seletor').html('Data Conclusão <span class=\'caret\'></span>');$('#valor').attr('name', 'data_conclusao')">Data Conclusão</a></li>
-                                    <li><a onclick="javascript:$('#seletor').html('Departamento <span class=\'caret\'></span>');$('#valor').attr('name', 'departamento__icontains')">Departamento</a></li>
+                                    
                                 </ul>
                               </div>
                                {% if filtro_campo and 'data_' not in filtro_campo %}
@@ -101,13 +101,6 @@
                                       <a href="{% url request|viewname page fields|indexOf:'data_conclusao' 'asc' object_qtdpage %}">Data Conclusão</a>
                                       {% endif %}
                                     </th>
-                                    <th class="hidden-phone">
-                                      {% if order == 'departamento' %}
-                                      <a href="{% url request|viewname page fields|indexOf:'departamento' tpOrderInv object_qtdpage %}">Departamento</a>
-                                      {% else %}
-                                      <a href="{% url request|viewname page fields|indexOf:'departamento' 'asc' object_qtdpage %}">Departamento</a>
-                                      {% endif %}
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -118,7 +111,9 @@
                                         <td class="center hidden-phone">{{ obj.situacao }}</td>
                                         <td class="center hidden-phone">{{ obj.data_inicial|date:"d/m/Y" }}</td>
                                         <td class="center hidden-phone">{{ obj.data_conclusao|date:"d/m/Y" }}</td>
-                                        <td class="center hidden-phone">{{ obj.departamento }}</td>
+                                      
+                                        
+
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -173,6 +168,7 @@
                           sOut += '</tr>';
                           sOut += '<tr>';
                           sOut += '<td>Situação:</td><td>'+item.fields.situacao+'</td>';
+                          sOut += '<td>Departamento:</td><td>'+item.fields.departamento+'</td>';
                           sOut += '</tr>';
                           if (item.fields.valor_previsto!=null && item.fields.valor_previsto!='null'){
                             sOut += '<tr>';

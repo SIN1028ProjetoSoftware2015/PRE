@@ -5,6 +5,7 @@
         <!-- page start-->
         <aside class="profile-info col-lg-12">
             <section class="panel">
+
                 <div class="row">
                     {% include "projetos/menu.html" %} </div>
                 <div class="bio-graph-heading">
@@ -229,12 +230,15 @@
                                           
 
                                       </form>
-                                <div class="panel-body">
-                                    <div id="bar_unidade_proj" class="graph"></div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
+
+             <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Projetos / Unidade
+                                </header>
+
+                                
                     
                 </div>
             </section>
@@ -243,6 +247,7 @@
         <!-- page end-->
     </section>
 </section>
+
 {% endblock content %} {% block pluginsjs %}
 <script src="{% static 'assets/chart-master/Chart2.js' %}"></script>
 <script src="{% static 'assets/morris.js-0.4.3/morris.min.js' %}" type="text/javascript"></script>
@@ -256,6 +261,7 @@
           $(this.i).val(this.cv + '%')
         }
       });
+
       
       var barDepartamentoData = [
           {% for k, v in projeto_departamento.items %}
@@ -309,7 +315,10 @@
       });
     });
 </script>
+
 {% endblock %}
 </body>
 
 </html>
+
+

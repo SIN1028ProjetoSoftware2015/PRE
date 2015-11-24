@@ -1,6 +1,10 @@
 from django.conf.urls import url
 
+
 from .views import home, graficos, sobre, projetos, participantes, departamento,unidade,participante
+
+from .views import home, graficos, sobre, projetos, participantes,unidade
+
 
 urlpatterns = [
     url(r'^$', home.HomeAdmin.as_view(), name='home'),
@@ -16,11 +20,13 @@ urlpatterns = [
     url(r'^projetos/(?P<page>[0-9]+)', projetos.ProjetosAdmin.as_view(), name='projetos'),
     url(r'^projetos/', projetos.ProjetosAdmin.as_view(), name='projetos'),
     url(r'^graficos/', graficos.GraficosAdmin.as_view(), name='graficos'),
+
     url(r'^departamento/', departamento.DepartamentoAdmin.as_view(), name='departamento'),
     url(r'^unidade/', unidade.UnidadeAdmin.as_view(), name='unidade'),
     url(r'^participante/', participante.ParticipanteAdmin.as_view(), name='participante'),
    
     
     
+
 
 ]
