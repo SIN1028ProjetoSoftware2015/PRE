@@ -56,6 +56,9 @@ def get_projeto_departamento_todos():
 	return mapa
 
 def get_projeto_unidade():
+
+
+	
 	mapa = {}
 	for m in Unidade.objects.all():
 		mapa[m.nome] = ProjetoUnidade.objects.filter(unidade=m.codigo).count()

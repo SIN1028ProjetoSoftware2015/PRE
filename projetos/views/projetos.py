@@ -53,10 +53,7 @@ class ProjetosAdmin(TemplateView):
 					context['filtro_nome'] = 'Data Conclusão'
 					context['filtro_campo'] = 'data_conclusao'
 					context['filtro_valor'] = datetime.strptime(v.split(' ')[0], '%Y-%m-%d').strftime('%d/%m/%Y')
-				elif 'departamento' in k:
-					context['filtro_nome'] = 'Departamento'
-					context['filtro_campo'] = 'departamento'
-					context['filtro_valor'] = v
+				
 
 		return paginar(kwargs, Projeto, 'numero', context, self.listFields, order_type='asc')
 
