@@ -1,0 +1,109 @@
+{% extends "projetos/index.html" %} {% load staticfiles %} {% block headercss %}
+<link href="{% static 'assets/morris.js-0.4.3/morris.css' %}" rel="stylesheet" /> {% endblock headercss %} {% block content %}
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <aside class="profile-info col-lg-12">
+            <section class="panel">
+                <div class="row">
+                    {% include "projetos/menu.html" %} </div>
+                <div class="bio-graph-heading">
+                    PRE - UFSM
+                </div>
+                </div>
+            </section>
+            <div class="panel-body">
+                                    <div id="bar_unidade_proj" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Participantes / Unidade
+                                </header>
+                                <div class="panel-body">
+                                    <div id="bar_unidade_part" class="graph"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+        </div>
+        <!-- page end-->
+    </section>
+</section>
+{% endblock content %} {% block pluginsjs %}
+<script src="{% static 'assets/chart-master/Chart2.js' %}"></script>
+<script src="{% static 'assets/morris.js-0.4.3/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/morris.js-0.4.3/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/jquery-knob/js/jquery.knob.js' %}"></script>
+{% endblock pluginsjs %} {% block js-foot %}
+<script>
+    $(function() {
+      $(".knob").knob({
+        'draw' : function () { 
+          $(this.i).val(this.cv + '%')
+        }
+      });
+      
+      var barDepartamentoData = [
+          {% for k, v in projeto_departamento.items %}
+            { departamento: '{{ k }}', projetos: {{ v.count }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_departamento',
+        data: barDepartamentoData,
+        xkey: 'departamento',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+
+
+      var barProjUnidadeData = [
+          {% for k, v in projeto_unidade.items %}
+            { unidade: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_unidade_proj',
+        data: barProjUnidadeData,
+        xkey: 'unidade',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+      var barPartUnidadeData = [
+          {% for k, v in participante_unidade.items %}
+            { unidade: '{{ k }}', partipante: {{ v }} },
+          {% endfor %}
+      ]
+      Morris.Bar({
+        element: 'bar_unidade_part',
+        data: barPartUnidadeData,
+        xkey: 'unidade',
+        ykeys: ['partipante'],
+        labels: ['Participantes'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+    });
+</script>
+{% endblock %}
+</body>
+
+</html>

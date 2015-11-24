@@ -1,0 +1,154 @@
+{% extends "projetos/index.html" %} {% load staticfiles %} {% block headercss %}
+<link href="{% static 'assets/morris.js-0.4.3/morris.css' %}" rel="stylesheet" /> {% endblock headercss %} {% block content %}
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <aside class="profile-info col-lg-12">
+            <section class="panel">
+                <div class="row">
+                    {% include "projetos/menu.html" %} </div>
+                <div class="bio-graph-heading">
+                    PRE - UFSM
+                </div>
+                </div>
+            </section>
+            <section>
+                <div id="morris">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Filtro de Situação dos Projetos por Ano
+                                    <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
+                                        {% csrf_token %}
+                                        <div class="input-group m-bot30 col-lg-4">
+                                            <select name="filter_year" class="selectpicker" data-style="btn-primary">
+                                              
+                                              <option {% if filtro_valor == 'Todos' %}selected{% endif %}>Todos</option>
+                                              {% for ano, proj in projetos_por_ano.items %}
+                                                <option {% if filtro_valor == ano %}selected{% endif %}>{{ ano }}</option>
+                                              {% endfor %}
+
+                                            </select>
+                                            <span class="input-group-btn">
+                                              <button type="submit" class="selectpicker" data-style="btn-info">Filtrar</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </header>
+                                <div class="panel-body text-center">
+                                    <canvas id="pie_situacao" width="300"></canvas>
+
+                                </div>
+                                <div id="legend_situacao"></div>
+                            </section>
+                        </div>
+                        <div class="col-lg-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Participantes / Vinculo
+                                </header>
+                                <div class="panel-body text-center">
+                                    <canvas id="pie_vinculo" width="300"></canvas>
+                                </div>
+                                <div id="legend_vinculo"></div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <heai proader class="panel-heading">
+                                    Projetos / Ano
+                                    </header>
+                                    <div class="panel-body">
+                                        <div id="bar_projetos_por_ano" class="graph"></div>
+                                    </div>
+                            </section>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <heai proader class="panel-heading">
+                                    
+                </div>
+            </section>
+        </aside>
+        </div>
+        <!-- page end-->
+    </section>
+</section>
+{% endblock content %} {% block pluginsjs %}
+<script src="{% static 'assets/chart-master/Chart2.js' %}"></script>
+<script src="{% static 'assets/morris.js-0.4.3/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/morris.js-0.4.3/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/jquery-knob/js/jquery.knob.js' %}"></script>
+{% endblock pluginsjs %} {% block js-foot %}
+<script>
+    $(function() {
+      $(".knob").knob({
+        'draw' : function () { 
+          $(this.i).val(this.cv + '%')
+        }
+      });
+
+      var pieSituacaoData = [          
+
+          {% for k, v in projeto_situacao.items %}
+          {
+              value: {{ v }},
+              color: '{{ ''|ramdom_color }}',
+              label: "{{ k }}"
+          },
+
+          {% endfor %}
+          
+           
+      ];
+      var pieVinculoData = [
+          {% for k, v in vinculo_participantes.items %}
+          {
+              value: {{ v }},
+              color: '{{ ''|ramdom_color }}',
+              label: "{{ k }}"
+          },
+          {% endfor %}
+
+      ];
+      myPieSituacao = new Chart(document.getElementById("pie_situacao").getContext("2d")).Pie(pieSituacaoData, {
+          legendTemplate : '{{ legend_template|safe }}'
+      });
+      $("#legend_situacao").html(myPieSituacao.generateLegend());
+      myPieVinculo = new Chart(document.getElementById("pie_vinculo").getContext("2d")).Pie(pieVinculoData, {
+          legendTemplate : '{{ legend_template|safe }}'
+      });
+      $("#legend_vinculo").html(myPieVinculo.generateLegend());
+      
+      var barPPAData = [
+          {% for k, v in projetos_por_ano.items %}
+            { ano: '{{ k }}', projetos: {{ v }} },
+          {% endfor %}
+
+      ]
+      Morris.Bar({
+        element: 'bar_projetos_por_ano',
+        data: barPPAData,
+        xkey: 'ano',
+        ykeys: ['projetos'],
+        labels: ['Projetos'],
+        barRatio: 0.4,
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        barColors: ['#6883a3']
+      });
+
+      
+    });
+</script>
+{% endblock %}
+</body>
+
+</html>
