@@ -401,7 +401,7 @@ ul.sidebar-menu li a.active i {
     margin-left:50;
     list-style:none;
     display:none;
-    width:205px;
+    width:100%;
     position:absolute;
     top:72px;
     float: left;
@@ -412,18 +412,21 @@ ul.sidebar-menu li a.active i {
     background: #ffffff;
     margin-left: 2px;
     float: left;
-     height: 20px;
+    height: 20px;
+    font-weight: normal;
+    font-size: 15px;
 }
  
 .submenu li a:link,
 .submenu li a:visited{
     display: block;
-    padding: 2px;
+    /*padding: 2px;*/
     /*border-left: 5px #ffffff solid;*/
     background: #ffffff;
     text-decoration: none;
-    width: 205px;
+    width: 100%;
     color: #000000;
+    font-weight: normal;
     font-size: 15px;
     /*margin-left: 3px;*/
     height: 20px;
@@ -434,14 +437,15 @@ ul.sidebar-menu li a.active i {
 .submenu li a:active,
 .submenu li a:hover{
     display: block;
-    padding: 2px;
+    /*padding: 2px;*/
     /*border-left: 2px #ffffff solid;*/
     background: #ffffff;
     text-decoration: none;
-    width: 215px;
+    width: 100%;
     color: #000000;
-    font-weight: bold;
-    margin-left: 5px; 
+    font-weight: normal;
+    font-size: 15px;
+    /*margin-left: 0px;*/ 
     height: 20px;   
 }
 

@@ -10,7 +10,7 @@ class ParticipanteAdmin(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ParticipanteAdmin, self).get_context_data(**kwargs)
-		context['menu'] = 'graficos'
+		context['menu'] = 'participante'
 		context['total_participantes'] = Participante.objects.count()
 		context['total_projetos'] = Projeto.objects.count()
 		filtros = None
