@@ -8,50 +8,40 @@
                 <div class="row">
                     {% include "projetos/menu.html" %} </div>
                 <div class="bio-graph-heading">
-                    PRE - UFSM
+                    Participantes/Unidade
                 </div>
                 </div>
             </section>
             <section>
-                <div id="morris">                    
+                <div id="morris">
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
-                                
-                                
-                                        
+
+                                <header proader class="panel-heading">
+                                  Filtro - Participantes / Unidade
+                                    <form id="frm_pesquisa" method="post" action="{% url request|viewname %}">
+                                        {% csrf_token %}
+                                        <div class="checkboxes input-group m-bot30 col-lg-12">
+                                            {% for k, v in participante_unidade_todos.items %}
+                                                <label class="label_check" for="{{v.id}}">
+                                                <input name="{{v.id}}" id="{{v.id}}" type="checkbox" {% if v.id in filtro_deps %} checked {% endif %} /> {{k}} </label>
+                                            {% endfor %}
+                                        </div>
+                                        <span class="input-group-btn">
+                                          <button type="submit" class="btn btn-white" type="button">Filtrar</button>
+                                        </span>
                                     </form>
                                 </header>
-                                
-                            </section>
-                                
-                    
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    Participantes / Unidade
-                                </header>
                                 <div class="panel-body">
-                                    <div id="bar_unidade_part" class="graph"></div>
-                                </div>
-                                <div class="panel-body">
-                                    <div id="bar_unidade_proj" class="graph"></div>
+                                    <div id="bar_participante_unidade" class="graph"></div>
                                 </div>
                             </section>
                         </div>
                     </div>
-                            </section>
-                        </div>
-                    </div>
-
-                    
                 </div>
             </section>
         </aside>
-        </div>
-        <!-- page end-->
     </section>
 </section>
 {% endblock content %} {% block pluginsjs %}
@@ -67,51 +57,16 @@
           $(this.i).val(this.cv + '%')
         }
       });
-      
-      var barDepartamentoData = [
-          {% for k, v in projeto_departamento.items %}
-            { departamento: '{{ k }}', projetos: {{ v.count }} },
-          {% endfor %}
-      ]
-      Morris.Bar({
-        element: 'bar_departamento',
-        data: barDepartamentoData,
-        xkey: 'departamento',
-        ykeys: ['projetos'],
-        labels: ['Projetos'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        barColors: ['#6883a3']
-      });
-
-
-      var barProjUnidadeData = [
-          {% for k, v in projeto_unidade.items %}
-            { unidade: '{{ k }}', projetos: {{ v }} },
-          {% endfor %}
-      ]
-      Morris.Bar({
-        element: 'bar_unidade_proj',
-        data: barProjUnidadeData,
-        xkey: 'unidade',
-        ykeys: ['projetos'],
-        labels: ['Projetos'],
-        barRatio: 0.4,
-        xLabelAngle: 35,
-        hideHover: 'auto',
-        barColors: ['#6883a3']
-      });
-      var barPartUnidadeData = [
+      var barParUnidadeData = [
           {% for k, v in participante_unidade.items %}
-            { unidade: '{{ k }}', partipante: {{ v }} },
+            { unidade: '{{ k }}', participantes: {{ v.count }} },
           {% endfor %}
-      ]
+      ];
       Morris.Bar({
-        element: 'bar_unidade_part',
-        data: barPartUnidadeData,
+        element: 'bar_participante_unidade',
+        data: barParUnidadeData,
         xkey: 'unidade',
-        ykeys: ['partipante'],
+        ykeys: ['participantes'],
         labels: ['Participantes'],
         barRatio: 0.4,
         xLabelAngle: 35,

@@ -1,7 +1,5 @@
 from django.views.generic import TemplateView
-from projetos.models import Projeto, Participante, ProjetoParticipante, Unidade, ProjetoUnidade, Departamento
-from projetos import utils
-import datetime
+from projetos.models import Projeto, Participante, Departamento
 
 # Create your views here.
 class DepartamentoAdmin(TemplateView):
@@ -22,8 +20,6 @@ class DepartamentoAdmin(TemplateView):
 				if 'csrfmiddlewaretoken' not in k:
 					context['filtro_deps'].append(k)
 		context['legend_template'] = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-		context['projeto_unidade'] = get_projeto_unidade()
-		context['participante_unidade'] = get_participante_unidade()
 		context['projeto_departamento'] = get_projeto_departamento(context['filtro_deps'])
 		context['projeto_departamento_todos'] = get_projeto_departamento_todos()
 		return context
@@ -53,16 +49,4 @@ def get_projeto_departamento_todos():
 	for m in Departamento.objects.all():
 		mapa[m.nome] = {}
 		mapa[m.nome]['id'] = str(m.codigo)
-	return mapa
-
-def get_projeto_unidade():
-	mapa = {}
-	for m in Unidade.objects.all():
-		mapa[m.nome] = ProjetoUnidade.objects.filter(unidade=m.codigo).count()
-	return mapa
-
-def get_participante_unidade():
-	mapa = {}
-	for m in Unidade.objects.all():
-		mapa[m.nome] = Participante.objects.filter(unidade=m.codigo).count()
 	return mapa
